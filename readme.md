@@ -29,7 +29,9 @@ It's just a matter of orchestrating them together!
 
 Local development is always a challenge to get right.  Especially if you're using multiple software packages together.
 
-All you need to get started is to type `docker-compose up` at the root of this project.  If you need to run any commands like `composer` or `artisan`, simply prefix them with `./run` at the root of this project.  They will be run inside the environment.
+All you need to get started is to type `docker-compose up` at the root of this project.  Navigate to the site and I've added some links to the default Laravel welcome page for you to check out.
+
+If you need to run any commands like `composer` or `artisan`, simply prefix them with `./run` at the root of this project.  They will be run inside the environment.
 
 Once the environment is running, it will output all server requests, database access, queue access and cache messages.  Repeated queue messages are normal and are just the queue worker polling, the worker may error out a few times until RabbitMQ is fully started.
 
@@ -54,7 +56,7 @@ The following ports are exposed by default:
  - RabbitMQ Management, 8081
  - Redis, 6379
 
-This gives you the convenience of being able to run local GUI tools against the environment - I recommend DataGrip Redis Desktop.
+This gives you the convenience of being able to run local GUI tools against the environment - I recommend DataGrip and Redis Desktop.
 
 
 #### Linux
