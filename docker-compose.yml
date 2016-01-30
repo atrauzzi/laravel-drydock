@@ -1,0 +1,137 @@
+queue:
+  image: rabbitmq:management
+  container_name: laravel-queue
+  hostname: laravelqueue
+
+  environment:
+    RABBITMQ_ERLANG_COOKIE: "laravel-dev"
+
+  ports:
+    - "8081:15672"
+
+
+webapp:
+  dockerfile: php.Dockerfile
+  build: .
+  container_name: laravel-webapp
+
+  volumes:
+    - "./laravel:/var/www"
+
+  links:
+    - queue:rabbitmq
+    - cache:redis
+    - database:postgres
+
+  #
+  # Development Environment Configuration
+  #
+  # Note: Do not put secret info like API keys here, those still belong in `.env`.
+  # Note: The goal is to not have to rewrite laravel configs, just map Docker defaults to them here.
+  # ToDo: Eventually docker-compose will allow variables to be interpolated.
+  environment:
+    APP_ENV: "local"
+    APP_DEBUG: "true"
+    REDIS_HOST: "redis"
+    REDIS_PORT: "6379"
+    CACHE_DRIVER: "redis"
+    SESSION_DRIVER: "redis"
+    DB_CONNECTION: "pgsql"
+    DB_HOST: "postgres"
+    DB_USERNAME: "postgres"
+    DB_PASSWORD: ""
+    DB_DATABASE: "laravel"
+    QUEUE_DRIVER: "rabbitmq"
+    RABBITMQ_HOST: "rabbitmq"
+    RABBITMQ_PORT: "5672"
+    RABBITMQ_VHOST: "/"
+    RABBITMQ_LOGIN: "guest"
+    RABBITMQ_PASSWORD: "guest"
+    RABBITMQ_QUEUE: "laravel_laravel"
+
+  #
+  #
+  #
+
+worker:
+  dockerfile: php.Dockerfile
+  build: .
+  container_name: laravel-worker
+
+  volumes:
+    - "./laravel:/var/www"
+
+  links:
+    - queue:rabbitmq
+    - cache:redis
+    - database:postgres
+
+  # ToDo: Docker compose is still improving their "extends" directive. Eventually we'll be able to omit this by extending the webapp service.
+  environment:
+    APP_ENV: "local"
+    APP_DEBUG: "true"
+    REDIS_HOST: "redis"
+    REDIS_PORT: "6379"
+    CACHE_DRIVER: "redis"
+    SESSION_DRIVER: "redis"
+    DB_CONNECTION: "pgsql"
+    DB_HOST: "postgres"
+    DB_USERNAME: "postgres"
+    DB_PASSWORD: ""
+    DB_DATABASE: "laravel"
+    QUEUE_DRIVER: "rabbitmq"
+    RABBITMQ_HOST: "rabbitmq"
+    RABBITMQ_PORT: "5672"
+    RABBITMQ_VHOST: "/"
+    RABBITMQ_LOGIN: "guest"
+    RABBITMQ_PASSWORD: "guest"
+    RABBITMQ_QUEUE: "laravel_laravel"
+
+  #
+  #
+  #
+
+  entrypoint: "artisan"
+  command: "queue:listen"
+
+
+web:
+  dockerfile: nginx.Dockerfile
+  build: .
+  container_name: laravel-web
+
+  volumes:
+    - "./laravel/public:/var/www/public"
+
+  links:
+    - webapp
+
+  ports:
+    - "8080:8080"
+
+
+cache:
+  image: redis
+  container_name: laravel-cache
+
+  volumes:
+    - "/data"
+
+  ports:
+    - "6379:6379"
+
+
+database:
+  image: postgres
+  container_name: laravel-database
+
+  volumes:
+    - "/var/lib/postgresql/data"
+
+  environment:
+    POSTGRES_USER: "root"
+    POSTGRES_PASSWORD: ""
+    POSTGRES_DB: "laravel"
+
+  ports:
+    - "5432:5432"
