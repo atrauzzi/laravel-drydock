@@ -29,7 +29,11 @@ It's just a matter of orchestrating them together!
 
 Local development is always a challenge to get right.  Especially if you're using multiple software packages together.
 
-All you need to get started is to type `docker-compose up` at the root of this project.  Navigate to the site and I've added some links to the default Laravel welcome page for you to check out.
+To get started, perform the following:
+
+ - Copy the example environment file to a new `.env` file, be sure to provide a valid app key.
+ - `./run composer install` (you will likely encounter git's rate limit)
+ - run `docker-compose up`
 
 If you need to run any commands like `composer` or `artisan`, simply prefix them with `./run` at the root of this project.  They will be run inside the environment.
 
