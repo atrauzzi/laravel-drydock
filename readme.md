@@ -31,6 +31,7 @@ Local development is always a challenge to get right.  Especially if you're usin
 
 To get started, perform the following:
 
+ - Run `export $UID` in the terminal you will be launching from.
  - Copy the example environment file to a new `.env` file, be sure to provide a valid app key.
  - `./run composer install` (you will likely encounter git's rate limit)
  - run `docker-compose up`
