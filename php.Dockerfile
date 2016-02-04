@@ -6,7 +6,6 @@ WORKDIR /var/www
 RUN apt-get update -y
 RUN apt-get install -y \
     curl \
-    php5-mongo \
     php5-pgsql \
     php5-redis \
     php5-json \
