@@ -18,6 +18,7 @@ webapp:
 
   volumes:
     - "./laravel:/var/www"
+    - "~/.ssh:/root/ssh"
 
   links:
     - queue:rabbitmq
