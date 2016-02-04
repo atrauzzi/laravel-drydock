@@ -1,3 +1,4 @@
 #!/bin/bash
 
+export UID
 docker-compose run --entrypoint="$1" webapp "${@:2}"

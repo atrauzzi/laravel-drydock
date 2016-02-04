@@ -27,6 +27,8 @@ ADD /resources/php-fpm.www.conf /etc/php5/fpm/pool.d/www.conf
 ADD /resources/artisan /usr/local/bin/artisan
 RUN chmod +x /usr/local/bin/artisan
 
+RUN chmod 777 /run
+
 EXPOSE 9000
 
 ENTRYPOINT ["/usr/sbin/php5-fpm"]
