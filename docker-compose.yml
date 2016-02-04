@@ -19,6 +19,7 @@ webapp:
   volumes:
     - "./laravel:/var/www"
     - "~/.ssh:/root/ssh"
+    - "/root/.composer"
 
   links:
     - queue:rabbitmq
