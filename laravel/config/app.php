@@ -147,10 +147,15 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
+        /*
+         * Package Service Providers
+         */
+        Barryvdh\Debugbar\ServiceProvider::class,
         VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider::class,
 
         /*
-         * Application Service Providers...
+         * Application Service Providers
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,

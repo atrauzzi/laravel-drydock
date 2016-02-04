@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "5.2.x-dev",
         "league/oauth2-client": "1.*",
-        "predis/predis": "1.*"
+        "predis/predis": "1.*",
+        "barryvdh/laravel-debugbar": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
