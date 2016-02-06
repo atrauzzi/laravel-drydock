@@ -1,3 +1,19 @@
+database:
+  image: postgres
+  container_name: laravel-database
+
+  volumes:
+    - "/var/lib/postgresql/data"
+
+  environment:
+    POSTGRES_USER: "root"
+    POSTGRES_PASSWORD: ""
+    POSTGRES_DB: "laravel"
+
+  ports:
+    - "5432:5432"
+
+
 queue:
   image: rabbitmq:management
   container_name: laravel-queue
@@ -8,6 +24,17 @@ queue:
 
   ports:
     - "8081:15672"
+
+
+cache:
+  image: redis
+  container_name: laravel-cache
+
+  volumes:
+    - "/data"
+
+  ports:
+    - "6379:6379"
 
 
 webapp:
@@ -50,14 +77,28 @@ webapp:
     RABBITMQ_PASSWORD: "guest"
     RABBITMQ_QUEUE: "laravel_laravel"
 
-  #
-  #
-  #
+
+web:
+  dockerfile: nginx.Dockerfile
+  build: .
+  container_name: laravel-web
+
+  volumes_from:
+    - webapp
+
+  links:
+    - webapp
+
+  ports:
+    - "8080:8080"
+
 
 worker:
   dockerfile: php.Dockerfile
   build: .
   container_name: laravel-worker
+  entrypoint: "artisan"
+  command: "queue:listen"
 
   volumes:
     - "./laravel:/var/www"
@@ -87,52 +128,3 @@ worker:
     RABBITMQ_LOGIN: "guest"
     RABBITMQ_PASSWORD: "guest"
     RABBITMQ_QUEUE: "laravel_laravel"
-
-  #
-  #
-  #
-
-  entrypoint: "artisan"
-  command: "queue:listen"
-
-
-web:
-  dockerfile: nginx.Dockerfile
-  build: .
-  container_name: laravel-web
-
-  volumes:
-    - "./laravel/public:/var/www/public"
-
-  links:
-    - webapp
-
-  ports:
-    - "8080:8080"
-
-
-cache:
-  image: redis
-  container_name: laravel-cache
-
-  volumes:
-    - "/data"
-
-  ports:
-    - "6379:6379"
-
-
-database:
-  image: postgres
-  container_name: laravel-database
-
-  volumes:
-    - "/var/lib/postgresql/data"
-
-  environment:
-    POSTGRES_USER: "root"
-    POSTGRES_PASSWORD: ""
-    POSTGRES_DB: "laravel"
-
-  ports:
-    - "5432:5432"
