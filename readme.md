@@ -19,7 +19,7 @@ We know why they do it - it's to offer scalability!  But when we unpack the excu
 
 ## Laravel
 
-Believe it or not, due to the extensive abstractions offered, Laravel in many ways can itself be considered a PaaS toolkit that targets PHP!
+Due to the extensive number of abstractions it offers, Laravel in many ways can itself be considered a PaaS toolkit that targets PHP!
 So long as you are gentle and configure it correctly, it can intelligently adapt to a huge variety of configurations.
 
 It's just a matter of orchestrating them together!
