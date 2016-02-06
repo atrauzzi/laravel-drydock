@@ -14,12 +14,10 @@ webapp:
   dockerfile: php.Dockerfile
   build: .
   container_name: laravel-webapp
-  user: $UID
 
   volumes:
     - "./laravel:/var/www"
     - "~/.ssh:/home/.ssh"
-    - "/root/.composer"
 
   links:
     - queue:rabbitmq
@@ -33,7 +31,6 @@ webapp:
   # Note: The goal is to not have to rewrite laravel configs, just map Docker defaults to them here.
   # ToDo: Eventually docker-compose will allow variables to be interpolated.
   environment:
-    HOME: "/home"
     APP_ENV: "local"
     APP_DEBUG: "true"
     REDIS_HOST: "redis"

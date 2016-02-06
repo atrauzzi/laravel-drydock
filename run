@@ -1,4 +1,18 @@
 #!/bin/bash
 
-export UID
-docker-compose run --entrypoint="$1" webapp "${@:2}"
+HOME_ENV="-e HOME=/home"
+UID_FLAG="-u $UID"
+
+# On OSX, you're using a VM that runs as user 1000 and root in the container. vboxsf things happen.
+case "$OSTYPE" in
+    darwin*)
+        $HOME_ENV = "-e HOME=/root"
+        $UID_FLAG = ""
+    ;;
+esac
+
+docker-compose run \
+    $HOME_ENV \
+    $UID_FLAG \
+    --entrypoint="$1" \
+    webapp "${@:2}"

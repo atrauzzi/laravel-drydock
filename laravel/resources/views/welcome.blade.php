@@ -52,7 +52,7 @@
                 <div class="title">Laravel 5</div>
 
                 <a href="/dev/info">Environment Information</a>
-                <a href="http://localhost:8081">RabbitMQ</a>
+                <a href="http://{{ Request::getHost() }}:8081">RabbitMQ</a>
 
                 <hr />
 
