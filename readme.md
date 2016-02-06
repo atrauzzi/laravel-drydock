@@ -94,4 +94,8 @@ Once docker compose has sorted out the last few lingering issues with path trans
 
 
 #### OSX
+
 I haven't done extensive testing on OSX yet, although docker compose seems to run best here.
+
+If you would like to treat your development VM like a local machine, check out these [instructions on setting up NAT forwarding at the command line](https://www.virtualbox.org/manual/ch06.html#natforward).
+You can also configure forwarded ports using the VirtualBox GUI using [the instructions found here](http://ask.xmodulo.com/access-nat-guest-from-host-virtualbox.html).
