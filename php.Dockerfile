@@ -28,7 +28,7 @@ ADD /resources/artisan /usr/local/bin/artisan
 RUN chmod +x /usr/local/bin/artisan
 
 RUN chmod 777 /run
-RUN chmod 770 /root
+RUN chmod 770 /home
 
 EXPOSE 9000
 

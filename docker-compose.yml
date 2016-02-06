@@ -18,7 +18,7 @@ webapp:
 
   volumes:
     - "./laravel:/var/www"
-    - "~/.ssh:/root/.ssh"
+    - "~/.ssh:/home/.ssh"
     - "/root/.composer"
 
   links:
@@ -33,6 +33,7 @@ webapp:
   # Note: The goal is to not have to rewrite laravel configs, just map Docker defaults to them here.
   # ToDo: Eventually docker-compose will allow variables to be interpolated.
   environment:
+    HOME: "/home"
     APP_ENV: "local"
     APP_DEBUG: "true"
     REDIS_HOST: "redis"
@@ -60,7 +61,6 @@ worker:
   dockerfile: php.Dockerfile
   build: .
   container_name: laravel-worker
-  user: $UID
 
   volumes:
     - "./laravel:/var/www"
