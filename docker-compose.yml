@@ -40,6 +40,8 @@ cache:
 webapp:
   dockerfile: php.Dockerfile
   build: .
+  # See: https://github.com/docker/compose/pull/2458
+  #image: laravel-drydock
   container_name: laravel-webapp
 
   volumes:
@@ -91,6 +93,48 @@ web:
 
   ports:
     - "8080:8080"
+
+cron:
+  dockerfile: php.Dockerfile
+  build: .
+  container_name: laravel-cron
+  entrypoint: "cron"
+  command: ["-f"]
+
+  volumes:
+    - "./laravel:/var/www"
+    - "~/.ssh:/home/.ssh"
+
+  links:
+    - queue:rabbitmq
+    - cache:redis
+    - database:postgres
+
+  #
+  # Development Environment Configuration
+  #
+  # Note: Do not put secret info like API keys here, those still belong in `.env`.
+  # Note: The goal is to not have to rewrite laravel configs, just map Docker defaults to them here.
+  # ToDo: Eventually docker-compose will allow variables to be interpolated.
+  environment:
+    APP_ENV: "local"
+    APP_DEBUG: "true"
+    REDIS_HOST: "redis"
+    REDIS_PORT: "6379"
+    CACHE_DRIVER: "redis"
+    SESSION_DRIVER: "redis"
+    DB_CONNECTION: "pgsql"
+    DB_HOST: "postgres"
+    DB_USERNAME: "postgres"
+    DB_PASSWORD: ""
+    DB_DATABASE: "laravel"
+    QUEUE_DRIVER: "rabbitmq"
+    RABBITMQ_HOST: "rabbitmq"
+    RABBITMQ_PORT: "5672"
+    RABBITMQ_VHOST: "/"
+    RABBITMQ_LOGIN: "guest"
+    RABBITMQ_PASSWORD: "guest"
+    RABBITMQ_QUEUE: "laravel_laravel"
 
 
 worker:
