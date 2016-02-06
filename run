@@ -14,5 +14,6 @@ esac
 docker-compose run \
     $HOME_ENV \
     $UID_FLAG \
+    -e TERM=$TERM \
     --entrypoint="$1" \
     webapp "${@:2}"
