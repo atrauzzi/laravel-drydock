@@ -23,6 +23,9 @@ RUN easy_install pip
 
 RUN php5enmod mcrypt
 
+RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
+RUN apt-get install -y nodejs
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN pip install hg+https://bitbucket.org/dbenamy/devcron#egg=devcron
@@ -40,6 +43,8 @@ RUN chmod +x /usr/local/bin/artisan
 
 RUN chmod 777 /run
 RUN chmod 770 /home
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 9000
 
