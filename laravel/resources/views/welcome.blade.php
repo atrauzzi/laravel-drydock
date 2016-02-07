@@ -43,6 +43,12 @@
                 margin-right: 5px;
             }
 
+            .notice {
+                margin-top: 10px;
+                font-weight: 800;
+                color: #005AA0;
+            }
+
         </style>
     </head>
     <body>
@@ -55,6 +61,10 @@
                 <a href="http://{{ Request::getHost() }}:8081">RabbitMQ</a>
                 <a href="http://github.com/atrauzzi/laravel-drydock">Github</a>
 
+                @if($lastCronRun)
+                    <div class="notice">Last cron run {{ $lastCronRun }} (runs every minute)</div>
+                @endif
+
                 <hr />
 
                 <input type="text" id="message" placeholder="Enter a message..." />
@@ -63,8 +73,8 @@
                 <br />
 
                 @if($message = Cache::pull('last-message'))
-                    <h3>Your message is done processing!</h3>
-                    <div>{{ $message }}</div>
+                    <h4>Your message is done processing!</h4>
+                    <div class="notice">{{ $message }}</div>
                 @endif
 
             </div>
