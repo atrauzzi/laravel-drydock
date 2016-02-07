@@ -32,7 +32,12 @@ $route = app('Illuminate\Routing\Router');
 $route->group(['middleware' => ['web']], function (Router $route) {
 
 	$route->get('/', function () {
-		return view('welcome');
+
+		$lastCronRun = new \Carbon\Carbon(Cache::get('last-cron'));
+		$lastCronRun = $lastCronRun->diffForHumans();
+
+		return view('welcome', compact('lastCronRun'));
+
 	});
 
 	$route->get('/dev/info', function () {

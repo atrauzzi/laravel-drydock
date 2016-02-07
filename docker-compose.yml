@@ -98,8 +98,9 @@ cron:
   dockerfile: php.Dockerfile
   build: .
   container_name: laravel-cron
-  entrypoint: "cron"
-  command: ["-f"]
+  # vixie cron jsut doesn't like running in a container, use devcron instead!
+  entrypoint: "devcron.py"
+  command: ["/etc/cron.d/laravel"]
 
   volumes:
     - "./laravel:/var/www"
