@@ -1,35 +1,45 @@
-import mithril from "mithril";
+import m from 'mithril';
 
 console.log('Welcome to Laravel Drydock!');
 
-
-
-//model
-var Page = {
-    list: function() {
-        return m.request({method: "GET", url: "pages.json"});
+let LastMessage = {
+    list: () => {
+        return m.request({method: "GET", url: "/api/web/last-message"});
     }
 };
 
-var Demo = {
-    //controller
-    controller: function() {
-        var pages = Page.list();
-        return {
-            pages: pages,
-            rotate: function() {
-                pages().push(pages().shift());
-            }
-        }
-    },
+class MessageMonitor {
 
-    //view
-    view: function(ctrl) {
-        return m("div", [
-            ctrl.pages().map(function(page) {
-                return m("a", {href: page.url}, page.title);
-            }),
-            m("button", {onclick: ctrl.rotate}, "Rotate links")
-        ]);
+    protected interval;
+
+    static createFactory(milliseconds : number) {
+        let messageMonitor = new MessageMonitor(milliseconds);
+        return () => { return messageMonitor };
     }
-};
+
+    //
+    //
+
+    constructor(milliseconds : number) {
+        this.interval = setInterval(this.check, milliseconds);
+    }
+
+    check() {
+        console.log("Checking for a processed message!");
+    }
+
+    view(ctrl) {
+        console.log(ctrl);
+    }
+
+}
+
+//
+//
+
+let messageMonitorFactory = MessageMonitor.createFactory(3000);
+
+m.mount(document.getElementById('last-message'), {
+    controller: messageMonitorFactory,
+    view: messageMonitorFactory
+});

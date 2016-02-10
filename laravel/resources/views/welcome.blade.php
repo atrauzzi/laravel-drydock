@@ -7,12 +7,12 @@
 
         @if(config('app.debug'))
         <script src="/jspm_packages/system.js"></script>
-        <script src="/config.js"></script>
-        @endif
-
+        <script src="/jspm.browser.js"></script>
+        <script src="/jspm.config.js"></script>
         <script>
             System.import('lib/welcome.ts');
         </script>
+        @endif
 
         <style>
             html, body {
@@ -81,10 +81,11 @@
 
                 <br />
 
-                @if($message = Cache::pull('last-message'))
+                <?php $message = Cache::pull('last-message') ?>
+                <div id="last-message" style="display:{{ $message ? 'block' : 'none' }}">
                     <h4>Your message is done processing!</h4>
                     <div class="notice">{{ $message }}</div>
-                @endif
+                </div>
 
             </div>
         </div>
