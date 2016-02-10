@@ -26,6 +26,8 @@ RUN php5enmod mcrypt
 RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
 RUN apt-get install -y nodejs
 
+RUN npm install jspm -g
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN pip install hg+https://bitbucket.org/dbenamy/devcron#egg=devcron

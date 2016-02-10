@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laravel 5</title>
+        <title>Laravel Drydock</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+
+        @if(config('app.debug'))
+        <script src="/jspm_packages/system.js"></script>
+        <script src="/config.js"></script>
+        @endif
+
+        <script>
+            System.import('lib/welcome.ts');
+        </script>
 
         <style>
             html, body {
