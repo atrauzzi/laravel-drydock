@@ -1,10 +1,30 @@
 {
   "private": true,
   "devDependencies": {
-    "gulp": "^3.8.8"
+    "gulp": "^3.8.8",
+    "jspm": "0.17.0-beta.6"
   },
   "dependencies": {
     "laravel-elixir": "^4.0.0",
     "bootstrap-sass": "^3.0.0"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "public"
+    },
+    "dependencies": {
+      "mithril": "npm:mithril@^0.2.2-rc.1"
+    },
+    "devDependencies": {
+      "typescript": "npm:typescript@^1.6.2"
+    },
+    "peerDependencies": {
+      "buffer": "github:jspm/nodelibs-buffer@^0.2.0-alpha",
+      "fs": "github:jspm/nodelibs-fs@^0.2.0-alpha",
+      "os": "github:jspm/nodelibs-os@^0.2.0-alpha",
+      "path": "github:jspm/nodelibs-path@^0.2.0-alpha",
+      "process": "github:jspm/nodelibs-process@^0.2.0-alpha",
+      "readline": "github:jspm/nodelibs-readline@^0.2.0-alpha"
+    }
   }
 }

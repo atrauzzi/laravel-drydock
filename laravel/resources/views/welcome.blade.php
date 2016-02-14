@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laravel 5</title>
+        <title>Laravel Drydock</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+
+        @if(config('app.debug'))
+        <script src="/jspm_packages/system.js"></script>
+        <script src="/jspm.browser.js"></script>
+        <script src="/jspm.config.js"></script>
+        <script>
+            System.import('lib/welcome.ts');
+        </script>
+        @endif
 
         <style>
             html, body {
@@ -72,10 +81,15 @@
 
                 <br />
 
-                @if($message = Cache::pull('last-message'))
-                    <h4>Your message is done processing!</h4>
-                    <div class="notice">{{ $message }}</div>
-                @endif
+                <?php $message = Cache::pull('last-message') ?>
+                <div id="last-message">
+                    @if($message)
+                    <div>
+                        <h4>Your message is done processing!</h4>
+                        <div class="notice">{{ $message }}</div>
+                    </div>
+                    @endif
+                </div>
 
             </div>
         </div>
