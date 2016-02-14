@@ -6,12 +6,13 @@ UID_FLAG="-u $UID"
 # On OSX, you're using a VM that runs as user 1000 and root in the container. Bad vboxsf things happen.
 case "$OSTYPE" in
     darwin*)
-        $HOME_ENV = "-e HOME=/root"
-        $UID_FLAG = ""
+        HOME_ENV="-e HOME=/root"
+        UID_FLAG=""
     ;;
 esac
 
 docker-compose run \
+    --rm \
     $HOME_ENV \
     $UID_FLAG \
     -e TERM=$TERM \

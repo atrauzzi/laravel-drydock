@@ -11,7 +11,11 @@ Before getting started, be sure to check the platform specific notes below.  Aft
 
  - Copy the example environment file to a new `.env` file, be sure to provide a valid app key.
  - `./run composer install` (you will likely encounter github's rate limit)
+ - `./run npm install`
+ - `./run jspm install`
  - run `docker-compose up`
+
+These are going to download a considerable amount of dependencies for the front and back end, so be prepared to wait a little.
 
 If you need to run any commands like `composer` or `artisan`, simply prefix them with `./run` at the root of this project.  They will be run inside the environment.
 
