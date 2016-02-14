@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use App\Jobs\TestJob;
 
 /** @var \Illuminate\Routing\Router $route */
@@ -51,6 +52,10 @@ $route->group(['middleware' => ['web']], function (Router $route) {
 	$route->get('/dev/queue/test', function (Request $request) {
 		dispatch(new TestJob($request->get('message')));
 		return new Response(null, 204);
+	});
+
+	$route->get('/api/web/last-message', function (Request $request) {
+		return new JsonResponse(Cache::pull('last-message'));
 	});
 
 });

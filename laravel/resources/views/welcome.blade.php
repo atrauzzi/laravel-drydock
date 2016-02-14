@@ -82,9 +82,13 @@
                 <br />
 
                 <?php $message = Cache::pull('last-message') ?>
-                <div id="last-message" style="display:{{ $message ? 'block' : 'none' }}">
-                    <h4>Your message is done processing!</h4>
-                    <div class="notice">{{ $message }}</div>
+                <div id="last-message">
+                    @if($message)
+                    <div>
+                        <h4>Your message is done processing!</h4>
+                        <div class="notice">{{ $message }}</div>
+                    </div>
+                    @endif
                 </div>
 
             </div>
