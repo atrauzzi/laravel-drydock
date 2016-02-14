@@ -16,7 +16,7 @@ class MessageMonitor {
 
     protected milliseconds;
 
-    protected thingy;
+    protected interval;
 
     public constructor(milliseconds : number) {
         this.milliseconds = milliseconds;
@@ -27,7 +27,7 @@ class MessageMonitor {
 
     public controller = () => {
 
-        this.thingy = setInterval(this.check, this.milliseconds);
+        this.interval = setInterval(this.check, this.milliseconds);
 
     };
 
