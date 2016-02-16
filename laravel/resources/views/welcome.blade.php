@@ -68,6 +68,7 @@
 
                 <a href="/dev/info">Environment Information</a>
                 <a href="http://{{ Request::getHost() }}:8081">RabbitMQ</a>
+                <a href="http://{{ Request::getHost() }}:8082">E-Mail</a>
                 <a href="http://github.com/atrauzzi/laravel-drydock">Github</a>
 
                 @if($lastCronRun)
@@ -76,8 +77,9 @@
 
                 <hr />
 
+                <input type="email" id="email" placeholder="Enter an email address..." />
                 <input type="text" id="message" placeholder="Enter a message..." />
-                <a href="javascript:void(0)" onclick="location.href='/dev/queue/test?message=' + message.value; message.value='';">Queue it!</a>
+                <a href="javascript:void(0)" onclick="location.href='/dev/queue/test?message=' + message.value + '&email=' + email.value; message.value=''; email.value='';">Queue it!</a>
 
                 <br />
 

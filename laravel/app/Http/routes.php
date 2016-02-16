@@ -50,7 +50,7 @@ $route->group(['middleware' => ['web']], function (Router $route) {
 	});
 
 	$route->get('/dev/queue/test', function (Request $request) {
-		dispatch(new TestJob($request->get('message')));
+		dispatch(new TestJob($request->get('message'), $request->get('email')));
 		return new Response(null, 204);
 	});
 

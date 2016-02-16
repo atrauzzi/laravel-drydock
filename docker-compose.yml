@@ -37,6 +37,18 @@ cache:
     - "6379:6379"
 
 
+email:
+  dockerfile: php.Dockerfile
+  build: .
+  container_name: laravel-email
+
+  ports:
+    - "8082:1080"
+
+  entrypoint: "maildev"
+  command: []
+
+
 webapp:
   dockerfile: php.Dockerfile
   build: .
@@ -52,6 +64,7 @@ webapp:
     - queue:rabbitmq
     - cache:redis
     - database:postgres
+    - email:maildev
 
   #
   # Development Environment Configuration
@@ -78,6 +91,10 @@ webapp:
     RABBITMQ_LOGIN: "guest"
     RABBITMQ_PASSWORD: "guest"
     RABBITMQ_QUEUE: "laravel_laravel"
+    MAIL_DRIVER: "smtp"
+    MAIL_HOST: "maildev"
+    MAIL_PORT: "1025"
+
 
 
 web:
@@ -110,6 +127,7 @@ cron:
     - queue:rabbitmq
     - cache:redis
     - database:postgres
+    - email:maildev
 
   #
   # Development Environment Configuration
@@ -136,6 +154,9 @@ cron:
     RABBITMQ_LOGIN: "guest"
     RABBITMQ_PASSWORD: "guest"
     RABBITMQ_QUEUE: "laravel_laravel"
+    MAIL_DRIVER: "smtp"
+    MAIL_HOST: "maildev"
+    MAIL_PORT: "1025"
 
 
 worker:
@@ -152,6 +173,7 @@ worker:
     - queue:rabbitmq
     - cache:redis
     - database:postgres
+    - email:maildev
 
   # ToDo: Docker compose is still improving their "extends" directive. Eventually we'll be able to omit this by extending the webapp service.
   environment:
@@ -173,3 +195,6 @@ worker:
     RABBITMQ_LOGIN: "guest"
     RABBITMQ_PASSWORD: "guest"
     RABBITMQ_QUEUE: "laravel_laravel"
+    MAIL_DRIVER: "smtp"
+    MAIL_HOST: "maildev"
+    MAIL_PORT: "1025"
