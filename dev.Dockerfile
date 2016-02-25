@@ -33,7 +33,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN pip install hg+https://bitbucket.org/dbenamy/devcron#egg=devcron
 
+# Webapp
 ADD ./laravel /var/www
+
+# nginx configs
+ADD /resources/nginx.conf /etc/nginx/nginx.conf
+ADD /resources/nginx.default.conf /etc/nginx/sites-available/default
+
+# php-fpm
 ADD /resources/php-fpm.conf /etc/php5/fpm/php-fpm.conf
 ADD /resources/php-fpm.www.conf /etc/php5/fpm/pool.d/www.conf
 
