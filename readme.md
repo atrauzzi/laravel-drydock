@@ -7,6 +7,8 @@ Additionally, an optional deliverable of this project is a docker container runn
 
 ## Usage
 
+Please be sure to be using the most current versions of docker (>= 1.10) and docker-compose (>= 1.6) installed.  If you're encountering any issues, this would be a good first thing to check.
+
 Before getting started, be sure to check the platform specific notes below.  After that:
 
  - Copy the example environment file to a new `.env` file, be sure to provide a valid app key.
@@ -47,7 +49,7 @@ This gives you the convenience of being able to run local GUI tools against the 
 
 
 #### Linux
-You'll need to have docker compose installed.  I suggest using pip so that you can always get the latest version.
+I suggest installing docker-compose using pip so that you can always get the latest version.
 
 After that, because Docker runs on Linux, consider yourself done!  Everything happens on localhost and is ready for you to use.
 

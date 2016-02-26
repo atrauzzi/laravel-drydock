@@ -1,3 +1,11 @@
+# Not a V2 config...yet!
+# https://docs.docker.com/compose/compose-file/#versioning
+
+# Pending github issues
+# https://github.com/docker/docker/issues/20708
+# https://github.com/docker/compose/pull/2458
+# https://github.com/docker/compose/issues/1617
+
 database:
   image: postgres
   container_name: laravel-database
@@ -67,10 +75,10 @@ webapp:
     - "./resources/crontab:/etc/cron.d/laravel"
 
     # Make available from within the container.
-    - "webapp:/var/www"
+    #- "webapp:/var/www"
 
-    # See: https://github.com/docker/docker/issues/20708
-    - "nginx_config:/etc/nginx"
+
+    #- "nginx_config:/etc/nginx"
     #- "nginx_server:/etc/nginx/sites-available/default"
 
   links:
@@ -114,26 +122,22 @@ web:
   container_name: laravel-web
 
   volumes:
-    # Mount from the PHP container.
-    - "webapp:/var/www"
-    # See: https://github.com/docker/docker/issues/20708
-    - "nginx_config:/etc/nginx"
-    #- "nginx_server:/etc/nginx/conf.d/default"
-
-    # Mount directly.
-    #- "./laravel:/var/www"
-    #- "./resources/nginx.conf:/etc/nginx/nginx.conf"
-    #- "./resources/nginx.default.conf:/etc/nginx/conf.d/default"
+    - "./laravel/public:/var/www/public"
+    - "./resources/nginx.conf:/etc/nginx/nginx.conf"
+    - "./resources/nginx.default.conf:/etc/nginx/conf.d/default.conf"
 
   links:
     - webapp
 
   ports:
-    - "8080:80"
+    - "8080:8080"
+
 
 cron:
   dockerfile: dev.Dockerfile
   build: .
+  # See: https://github.com/docker/compose/issues/1617
+  #extends: webapp
   container_name: laravel-cron
   # vixie cron jsut doesn't like running in a container, use devcron instead!
   entrypoint: "devcron.py"
@@ -141,7 +145,7 @@ cron:
 
   volumes:
     - "./laravel:/var/www"
-    - "~/.ssh:/home/.ssh"
+    - "./resources/crontab:/etc/cron.d/laravel"
 
   links:
     - queue:rabbitmq
@@ -182,6 +186,8 @@ cron:
 worker:
   dockerfile: dev.Dockerfile
   build: .
+  # See: https://github.com/docker/compose/issues/1617
+  #extends: webapp
   container_name: laravel-worker
   entrypoint: "artisan"
   command: "queue:listen"
