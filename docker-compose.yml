@@ -57,8 +57,21 @@ webapp:
   container_name: laravel-webapp
 
   volumes:
+
+    # Bind-mounts for dev.
     - "./laravel:/var/www"
-    - "~/.ssh:/home/.ssh"
+    - "./resources/nginx.conf:/etc/nginx/nginx.conf"
+    - "./resources/nginx.default.conf:/etc/nginx/sites-available/default"
+    - "./resources/php-fpm.conf:/etc/php5/fpm/php-fpm.conf"
+    - "./resources/php-fpm.www.conf:/etc/php5/fpm/pool.d/www.conf"
+    - "./resources/crontab:/etc/cron.d/laravel"
+
+    # Make available from within the container.
+    - "webapp:/var/www"
+
+    # See: https://github.com/docker/docker/issues/20708
+    - "nginx_config:/etc/nginx"
+    #- "nginx_server:/etc/nginx/sites-available/default"
 
   links:
     - queue:rabbitmq
@@ -96,19 +109,21 @@ webapp:
     MAIL_PORT: "1025"
 
 
-
 web:
   image: nginx
-#  dockerfile: nginx.Dockerfile
-#  build: .
   container_name: laravel-web
 
+  volumes:
+    # Mount from the PHP container.
+    - "webapp:/var/www"
+    # See: https://github.com/docker/docker/issues/20708
+    - "nginx_config:/etc/nginx"
+    #- "nginx_server:/etc/nginx/conf.d/default"
 
-#  volumes_from:
-#    - webapp
-#    - "webapp:nginx_conf:/etc/nginx/nginx.conf"
-#    - "webapp:nginx_site:/etc/nginx/conf.d/default"
-#    - "webapp:app:/var/www"
+    # Mount directly.
+    #- "./laravel:/var/www"
+    #- "./resources/nginx.conf:/etc/nginx/nginx.conf"
+    #- "./resources/nginx.default.conf:/etc/nginx/conf.d/default"
 
   links:
     - webapp
