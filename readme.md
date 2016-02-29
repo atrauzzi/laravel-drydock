@@ -14,6 +14,7 @@ Before getting started, be sure to check the platform specific notes below.  Aft
  - Ensure that the environment variable `UID` has been exported.  I suggest adding `export UID` in your default profile
  - Copy the example environment file to a new `.env` file, be sure to provide a valid app key.
  - `./run composer install` (you will likely encounter github's rate limit)
+ - `./run artisan migrate` (although the demo doesn't rely on any models)
  - `./run npm install`
  - `./run jspm install`
  - run `docker-compose up`
