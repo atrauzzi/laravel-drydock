@@ -11,6 +11,7 @@ Please be sure to be using the most current versions of docker (>= 1.10) and doc
 
 Before getting started, be sure to check the platform specific notes below.  After that:
 
+ - Ensure that the environment variable `UID` has been exported.  I suggest adding `export UID` in your default profile
  - Copy the example environment file to a new `.env` file, be sure to provide a valid app key.
  - `./run composer install` (you will likely encounter github's rate limit)
  - `./run npm install`

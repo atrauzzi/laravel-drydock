@@ -14,7 +14,7 @@ database:
     - "/var/lib/postgresql/data"
 
   environment:
-    POSTGRES_USER: "root"
+    POSTGRES_USER: "postgres"
     POSTGRES_PASSWORD: ""
     POSTGRES_DB: "laravel"
 
@@ -63,6 +63,8 @@ webapp:
   # See: https://github.com/docker/compose/pull/2458
   #image: laravel-drydock
   container_name: laravel-webapp
+
+  user: ${UID}
 
   volumes:
 
@@ -143,6 +145,8 @@ cron:
   entrypoint: "devcron.py"
   command: ["/etc/cron.d/laravel"]
 
+  user: ${UID}
+
   volumes:
     - "./laravel:/var/www"
     - "./resources/crontab:/etc/cron.d/laravel"
@@ -191,6 +195,8 @@ worker:
   container_name: laravel-worker
   entrypoint: "artisan"
   command: "queue:listen"
+
+  user: ${UID}
 
   volumes:
     - "./laravel:/var/www"
