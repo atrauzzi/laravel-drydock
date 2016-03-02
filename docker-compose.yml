@@ -8,15 +8,15 @@
 
 database:
   image: postgres
-  container_name: laravel-database
+  container_name: drydock-database
 
   volumes:
     - "/var/lib/postgresql/data"
 
   environment:
-    POSTGRES_USER: "postgres"
+    POSTGRES_USER: "drydock"
     POSTGRES_PASSWORD: ""
-    POSTGRES_DB: "laravel"
+    POSTGRES_DB: "drydock"
 
   ports:
     - "5432:5432"
@@ -24,11 +24,14 @@ database:
 
 queue:
   image: rabbitmq:management
-  container_name: laravel-queue
-  hostname: laravelqueue
+  container_name: drydock-queue
+  hostname: drydockqueue
 
   environment:
-    RABBITMQ_ERLANG_COOKIE: "laravel-dev"
+    RABBITMQ_ERLANG_COOKIE: "drydock-dev"
+    RABBITMQ_DEFAULT_USER: "drydock"
+    RABBITMQ_DEFAULT_PASS: ""
+    RABBITMQ_DEFAULT_VHOST: "/drydock"
 
   ports:
     - "8081:15672"
@@ -36,7 +39,7 @@ queue:
 
 cache:
   image: redis
-  container_name: laravel-cache
+  container_name: drydock-cache
 
   volumes:
     - "/data"
@@ -47,7 +50,7 @@ cache:
 
 email:
   image: djfarrelly/maildev
-  container_name: sospano-email
+  container_name: drydock-email
 
   ports:
     - "8082:80"
@@ -57,8 +60,8 @@ webapp:
   dockerfile: dev.Dockerfile
   build: .
   # See: https://github.com/docker/compose/pull/2458
-  #image: laravel-drydock
-  container_name: laravel-webapp
+  #image: drydock-laravel
+  container_name: drydock-webapp
 
   user: ${UID}
 
@@ -97,20 +100,20 @@ webapp:
     REDIS_HOST: "redis"
     REDIS_PORT: "6379"
     CACHE_DRIVER: "redis"
-    CACHE_PREFIX: "laravel"
+    CACHE_PREFIX: "laravel-drydock"
     SESSION_DRIVER: "redis"
     DB_CONNECTION: "pgsql"
     DB_HOST: "postgres"
-    DB_USERNAME: "postgres"
+    DB_USERNAME: "drydock"
     DB_PASSWORD: ""
-    DB_DATABASE: "laravel"
+    DB_DATABASE: "drydock"
     QUEUE_DRIVER: "rabbitmq"
     RABBITMQ_HOST: "rabbitmq"
     RABBITMQ_PORT: "5672"
-    RABBITMQ_VHOST: "/"
+    RABBITMQ_VHOST: "/drydock"
     RABBITMQ_LOGIN: "guest"
     RABBITMQ_PASSWORD: "guest"
-    RABBITMQ_QUEUE: "laravel_laravel"
+    RABBITMQ_QUEUE: "laravel"
     MAIL_DRIVER: "smtp"
     MAIL_HOST: "maildev"
     MAIL_PORT: "25"
@@ -118,7 +121,7 @@ webapp:
 
 web:
   image: nginx
-  container_name: laravel-web
+  container_name: drydock-web
 
   volumes:
     - "./laravel/public:/var/www/public"
@@ -137,7 +140,7 @@ cron:
   build: .
   # See: https://github.com/docker/compose/issues/1617
   #extends: webapp
-  container_name: laravel-cron
+  container_name: drydock-cron
   # vixie cron jsut doesn't like running in a container, use devcron instead!
   entrypoint: "devcron.py"
   command: ["/etc/cron.d/laravel"]
@@ -166,20 +169,20 @@ cron:
     REDIS_HOST: "redis"
     REDIS_PORT: "6379"
     CACHE_DRIVER: "redis"
-    CACHE_PREFIX: "laravel"
+    CACHE_PREFIX: "laravel-drydock"
     SESSION_DRIVER: "redis"
     DB_CONNECTION: "pgsql"
     DB_HOST: "postgres"
-    DB_USERNAME: "postgres"
+    DB_USERNAME: "drydock"
     DB_PASSWORD: ""
-    DB_DATABASE: "laravel"
+    DB_DATABASE: "drydock"
     QUEUE_DRIVER: "rabbitmq"
     RABBITMQ_HOST: "rabbitmq"
     RABBITMQ_PORT: "5672"
-    RABBITMQ_VHOST: "/"
+    RABBITMQ_VHOST: "/drydock"
     RABBITMQ_LOGIN: "guest"
     RABBITMQ_PASSWORD: "guest"
-    RABBITMQ_QUEUE: "laravel_laravel"
+    RABBITMQ_QUEUE: "laravel"
     MAIL_DRIVER: "smtp"
     MAIL_HOST: "maildev"
     MAIL_PORT: "1025"
@@ -190,7 +193,7 @@ worker:
   build: .
   # See: https://github.com/docker/compose/issues/1617
   #extends: webapp
-  container_name: laravel-worker
+  container_name: drydock-worker
   entrypoint: "artisan"
   command: "queue:listen"
 
@@ -212,20 +215,20 @@ worker:
     REDIS_HOST: "redis"
     REDIS_PORT: "6379"
     CACHE_DRIVER: "redis"
-    CACHE_PREFIX: "laravel"
+    CACHE_PREFIX: "laravel-drydock"
     SESSION_DRIVER: "redis"
     DB_CONNECTION: "pgsql"
     DB_HOST: "postgres"
-    DB_USERNAME: "postgres"
+    DB_USERNAME: "drydock"
     DB_PASSWORD: ""
-    DB_DATABASE: "laravel"
+    DB_DATABASE: "drydock"
     QUEUE_DRIVER: "rabbitmq"
     RABBITMQ_HOST: "rabbitmq"
     RABBITMQ_PORT: "5672"
-    RABBITMQ_VHOST: "/"
+    RABBITMQ_VHOST: "/drydock"
     RABBITMQ_LOGIN: "guest"
     RABBITMQ_PASSWORD: "guest"
-    RABBITMQ_QUEUE: "laravel_laravel"
+    RABBITMQ_QUEUE: "laravel"
     MAIL_DRIVER: "smtp"
     MAIL_HOST: "maildev"
     MAIL_PORT: "1025"
