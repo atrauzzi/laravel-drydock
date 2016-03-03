@@ -33,7 +33,7 @@ $route = app('Illuminate\Routing\Router');
 $route->group(['middleware' => ['web']], function (Router $route) {
 
 	$route->get('/', function () {
-
+throw new \Exception("cheeses");
 		$lastCronRun = new \Carbon\Carbon(Cache::get('last-cron'));
 		$lastCronRun = $lastCronRun->diffForHumans();
 

@@ -69,7 +69,6 @@
                 <a href="/dev/info">Environment Information</a>
                 <a href="http://{{ Request::getHost() }}:8081">RabbitMQ</a>
                 <a href="http://{{ Request::getHost() }}:8082">E-Mail</a>
-                <a href="http://{{ Request::getHost() }}:8083">Logs</a>
                 <a href="http://github.com/atrauzzi/laravel-drydock">Github</a>
 
                 @if($lastCronRun)

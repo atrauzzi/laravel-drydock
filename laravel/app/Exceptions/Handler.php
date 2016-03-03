@@ -10,8 +10,9 @@ use Illuminate\Foundation\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-class Handler extends ExceptionHandler
-{
+
+class Handler extends ExceptionHandler {
+
     /**
      * A list of the exception types that should not be reported.
      *
@@ -32,9 +33,20 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $e
      * @return void
      */
-    public function report(Exception $e)
-    {
-        return parent::report($e);
+    public function report(Exception $e) {
+
+        if($this->shouldReport($e)) {
+
+            if(app()->environment() == 'local') {
+                $errorBody = $this->render(null, $e)->getContent();
+                $this->log->error($errorBody);
+            }
+            else {
+                parent::report($e);
+            }
+
+        }
+
     }
 
     /**
@@ -44,8 +56,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $e
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $e)
-    {
+    public function render($request, Exception $e) {
         return parent::render($request, $e);
     }
 }

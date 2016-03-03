@@ -43,10 +43,6 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-$app->configureMonologUsing(function (Logger $monolog) {
-	
-});
-
 /*
 |--------------------------------------------------------------------------
 | Return The Application

@@ -15,7 +15,6 @@ database:
 
   volumes:
     - "/var/lib/postgresql/data"
-    - "./resources/create_sentry.sql:/docker-entrypoint-initdb.d/create_sentry.sql"
 
   environment:
     POSTGRES_DB: "drydock"
@@ -53,31 +52,6 @@ cache:
 #  ____________________________________________________________________________________________________________
 # |____________________________________________________________________________________________________________|
 
-logger:
-  image: sentry
-  container_name: drydock-logger
-
-  entrypoint: "sentry createuser && sentry start --upgrade"
-  command: ""
-
-  volumes:
-    - "./resources/sentry_config.yml:/usr/src/sentry/config.yml"
-
-  environment:
-    SENTRY_SECRET_KEY: "drydock"
-    SENTRY_DB_NAME: "sentry"
-    SENTRY_DB_USER: "drydock"
-    SENTRY_DB_PASSWORD: "drydock"
-
-  links:
-    - email:smtp
-    - cache:redis
-    - database:postgres
-
-  ports:
-    - "8083:9000"
-
-
 email:
   image: djfarrelly/maildev
   container_name: drydock-email
@@ -110,7 +84,6 @@ webapp:
     - cache:redis
     - database:postgres
     - email:maildev
-    - logger:sentry
 
   #
   # Development Environment Configuration
@@ -141,8 +114,6 @@ webapp:
     MAIL_DRIVER: "smtp"
     MAIL_HOST: "maildev"
     MAIL_PORT: "25"
-    LOG_HOST: "graylog"
-    LOG_PORT: "12201"
 
 
 web:
@@ -184,7 +155,6 @@ cron:
     - cache:redis
     - database:postgres
     - email:maildev
-    - logger:sentry
 
   #
   # Development Environment Configuration
@@ -236,7 +206,6 @@ worker:
     - cache:redis
     - database:postgres
     - email:maildev
-    - logger:sentry
 
   # ToDo: Docker compose is still improving their "extends" directive. Eventually we'll be able to omit this by extending the webapp service.
   environment:
