@@ -6,21 +6,24 @@
 # https://github.com/docker/compose/pull/2458
 # https://github.com/docker/compose/issues/1617
 
+#  ____________________________________________________________________________________________________________
+# |____________________________________________________________________________________________________________|
+
 database:
   image: postgres
   container_name: drydock-database
 
   volumes:
     - "/var/lib/postgresql/data"
+    - "./resources/create_sentry.sql:/docker-entrypoint-initdb.d/create_sentry.sql"
 
   environment:
+    POSTGRES_DB: "drydock"
     POSTGRES_USER: "drydock"
     POSTGRES_PASSWORD: ""
-    POSTGRES_DB: "drydock"
 
   ports:
     - "5432:5432"
-
 
 queue:
   image: rabbitmq:management
@@ -30,7 +33,7 @@ queue:
   environment:
     RABBITMQ_ERLANG_COOKIE: "drydock-dev"
     RABBITMQ_DEFAULT_USER: "drydock"
-    RABBITMQ_DEFAULT_PASS: ""
+    RABBITMQ_DEFAULT_PASS: "drydock"
     RABBITMQ_DEFAULT_VHOST: "/drydock"
 
   ports:
@@ -47,6 +50,33 @@ cache:
   ports:
     - "6379:6379"
 
+#  ____________________________________________________________________________________________________________
+# |____________________________________________________________________________________________________________|
+
+logger:
+  image: sentry
+  container_name: drydock-logger
+
+  entrypoint: "sentry createuser && sentry start --upgrade"
+  command: ""
+
+  volumes:
+    - "./resources/sentry_config.yml:/usr/src/sentry/config.yml"
+
+  environment:
+    SENTRY_SECRET_KEY: "drydock"
+    SENTRY_DB_NAME: "sentry"
+    SENTRY_DB_USER: "drydock"
+    SENTRY_DB_PASSWORD: "drydock"
+
+  links:
+    - email:smtp
+    - cache:redis
+    - database:postgres
+
+  ports:
+    - "8083:9000"
+
 
 email:
   image: djfarrelly/maildev
@@ -55,6 +85,8 @@ email:
   ports:
     - "8082:80"
 
+#  ____________________________________________________________________________________________________________
+# |____________________________________________________________________________________________________________|
 
 webapp:
   dockerfile: dev.Dockerfile
@@ -69,24 +101,16 @@ webapp:
 
     # Bind-mounts for dev.
     - "./laravel:/var/www"
-    - "./resources/nginx.conf:/etc/nginx/nginx.conf"
-    - "./resources/nginx.default.conf:/etc/nginx/sites-available/default"
     - "./resources/php-fpm.conf:/etc/php5/fpm/php-fpm.conf"
     - "./resources/php-fpm.www.conf:/etc/php5/fpm/pool.d/www.conf"
     - "./resources/crontab:/etc/cron.d/laravel"
-
-    # Make available from within the container.
-    #- "webapp:/var/www"
-
-
-    #- "nginx_config:/etc/nginx"
-    #- "nginx_server:/etc/nginx/sites-available/default"
 
   links:
     - queue:rabbitmq
     - cache:redis
     - database:postgres
     - email:maildev
+    - logger:sentry
 
   #
   # Development Environment Configuration
@@ -111,12 +135,14 @@ webapp:
     RABBITMQ_HOST: "rabbitmq"
     RABBITMQ_PORT: "5672"
     RABBITMQ_VHOST: "/drydock"
-    RABBITMQ_LOGIN: "guest"
-    RABBITMQ_PASSWORD: "guest"
+    RABBITMQ_LOGIN: "drydock"
+    RABBITMQ_PASSWORD: "drydock"
     RABBITMQ_QUEUE: "laravel"
     MAIL_DRIVER: "smtp"
     MAIL_HOST: "maildev"
     MAIL_PORT: "25"
+    LOG_HOST: "graylog"
+    LOG_PORT: "12201"
 
 
 web:
@@ -134,6 +160,8 @@ web:
   ports:
     - "8080:8080"
 
+#  ____________________________________________________________________________________________________________
+# |____________________________________________________________________________________________________________|
 
 cron:
   dockerfile: dev.Dockerfile
@@ -156,6 +184,7 @@ cron:
     - cache:redis
     - database:postgres
     - email:maildev
+    - logger:sentry
 
   #
   # Development Environment Configuration
@@ -180,8 +209,8 @@ cron:
     RABBITMQ_HOST: "rabbitmq"
     RABBITMQ_PORT: "5672"
     RABBITMQ_VHOST: "/drydock"
-    RABBITMQ_LOGIN: "guest"
-    RABBITMQ_PASSWORD: "guest"
+    RABBITMQ_LOGIN: "drydock"
+    RABBITMQ_PASSWORD: "drydock"
     RABBITMQ_QUEUE: "laravel"
     MAIL_DRIVER: "smtp"
     MAIL_HOST: "maildev"
@@ -207,6 +236,7 @@ worker:
     - cache:redis
     - database:postgres
     - email:maildev
+    - logger:sentry
 
   # ToDo: Docker compose is still improving their "extends" directive. Eventually we'll be able to omit this by extending the webapp service.
   environment:
@@ -226,8 +256,8 @@ worker:
     RABBITMQ_HOST: "rabbitmq"
     RABBITMQ_PORT: "5672"
     RABBITMQ_VHOST: "/drydock"
-    RABBITMQ_LOGIN: "guest"
-    RABBITMQ_PASSWORD: "guest"
+    RABBITMQ_LOGIN: "drydock"
+    RABBITMQ_PASSWORD: "drydock"
     RABBITMQ_QUEUE: "laravel"
     MAIL_DRIVER: "smtp"
     MAIL_HOST: "maildev"

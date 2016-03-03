@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Logger;
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -40,6 +42,10 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
+
+$app->configureMonologUsing(function (Logger $monolog) {
+	
+});
 
 /*
 |--------------------------------------------------------------------------
