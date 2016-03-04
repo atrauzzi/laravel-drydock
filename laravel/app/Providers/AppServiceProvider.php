@@ -17,8 +17,6 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot(Log $log, HandlerInterface $swiftMailHandler) {
 
-		$log->getMonolog()->pushHandler($swiftMailHandler);
-
 	}
 
 	/**
@@ -27,19 +25,6 @@ class AppServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register() {
-
-		if($this->app->environment() == 'local')
-			$this->app->singleton('Monolog\Handler\HandlerInterface', function () {
-				return new SwiftMailerHandler(
-					$this->app->make('Illuminate\Contracts\Mail\Mailer')->getSwiftMailer(),
-					SwiftMessage
-						::newInstance(null)
-						->addTo('log@localhost')
-						->addFrom('noreply@localhost', 'Laravel Drydock')
-						->setContentType('text/html')
-				);
-			})
-		;
 
 	}
 
