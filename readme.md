@@ -2,7 +2,7 @@
 
 This project is a premade, easy to use local development setup to be used for authoring Laravel applications.
 
-Additionally, an optional deliverable of this project is a docker container running your project via PHP-FPM.
+The deliverable of this project are two docker containers running your project via [nginx](https://www.nginx.com/) and [http://php.net/manual/en/install.fpm.php](php-fpm).
 
 
 ## Usage
@@ -40,14 +40,18 @@ I've thrown together some inline controllers in `routes.php` that you can use to
 
 ### Local Development
 
-The following ports are exposed:
+The following ports are exposed to the host:
 
  - Laravel, 8080
  - Postgres, 5432
- - RabbitMQ Management, 8081
  - Redis, 6379
+ - RabbitMQ Management, 8081
+ - Maildev, 8082
 
-This gives you the convenience of being able to run local GUI tools against the environment - I recommend DataGrip and Redis Desktop.
+This gives you the convenience of being able to run local GUI tools against the environment - I recommend PhpStorm, DataGrip and Redis Desktop.
+
+Port 8082 is running an email trap that will intercept all outbound emails and show them in a convenient interface.  The project's default exception handler has also been slightly 
+customized to render any exceptions to this email address.  This should be helpful while developing commands and background jobs.
 
 
 #### Linux
@@ -91,26 +95,52 @@ Once docker compose has sorted out the last few lingering issues with path trans
 
 ## Meta
 
-After spending lots of time with various PaaS offerings, it has dawned on me that each one ultimately disappoints.  
-In one way or another, you end up forced to make compromises and additions to your project that end up feeling a lot like technical debt.
+After spending lots of time with various PaaS offerings, it has dawned on me that each one ultimately disappoints.  I've had to support a few teams now attempting to use 
+services like Google Cloud, Azure and AWS.  Each platform has a way of saddling my team with cumbersome proprietary environment quirks that could swallow hours of productivity. 
+Eventually, you end up forced to make compromises and additions to your project that end up feeling a lot like technical debt.
 
 The core issue is that all PaaS in some way are restricting the runtime and breaking PHP and the ecosystem of libraries we enjoy:
 
+ - Inability to write to the local filesystem (only reason I care about this is for cached templates and optimizations)
  - Non-standard customizations to the runtime - especially when it comes to CURL
+ - Limited database, cache, filesystem or other supporting technology choices
+ - Confusing pricing structures that lead to high bills
  - Not running on the operating system of your choice
- - Missing PHP extensions
- - Overpriced
  - Brittle support library requirements
  - Obscure DNS and socket limitations
- - Limited database, cache, filesystem or other supporting technology choices
- - Inability to write to the local filesystem (only reason I care about this is for cached templates and optimizations)
-
+ - Missing PHP extensions
+ 
 We know why they do it - it's to offer scalability!  But when we unpack the excuses, it tends to be that the PaaS vendors go too far.
 
 
-### Laravel
+### Why Laravel?
 
 Due to the extensive number of abstractions it offers, Laravel in many ways can itself be considered a PaaS toolkit that targets PHP!
 So long as you are gentle and configure it correctly, it can intelligently adapt to a huge variety of configurations.
 
-It's just a matter of orchestrating them together!
+In the future, I would like to author an alternate version of Drydock that features [ASP.NET Core](http://live.asp.net) as the runtime.
+
+### Deploying
+
+When you're done authoring your project locally, you're ready to master a snapshot of your project as two docker images.  Use (and adapt) the following commands
+as needed:
+
+```
+ ./run composer update --no-dev --prefer-dist --optimize-autoloader
+ ./run npm install
+ ./run jspm install
+ docker --log-level=debug build --file=php.Dockerfile --tag=atrauzzi/laravel-drydock:webapp .
+ docker --log-level=debug build --file=web.Dockerfile --tag=atrauzzi/laravel-drydock:web .
+```
+
+This will prepare two images in your local docker image cache that contain your entire project, ready to run!  Keep in mind that most docker registries require that images 
+follow a specific naming convention.  Be sure to substitute `atrauzzi/laravel-drydock` above with names that correspond to your own registry.
+
+If you're using a [registry](https://docs.docker.com/registry/) that supports docker's `push` command, distributing your images is easy: 
+
+```
+docker push atrauzzi/laravel-drydock:webapp
+docker push atrauzzi/laravel-drydock:web
+```
+
+Again, please remember to substitute your own registry names above.  If you don't have a registry yet, I highly recommend [Docker Hub](https://hub.docker.com/).
