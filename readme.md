@@ -7,7 +7,7 @@ The deliverable of this project are two docker containers running your project v
 
 ## Usage
 
-Please be sure to be using the most current versions of docker (>= 1.10) and docker-compose (>= 1.6) installed.  If you're encountering any issues, this would be a good first thing to check.
+Please be sure to be using the most current versions of docker (>= 1.10) and docker-compose (>= 1.6).  If you're encountering any issues, this would be a good first thing to check.
 
 Before getting started, be sure to check the platform specific notes below.  After that:
 
