@@ -2,7 +2,7 @@
 
 This project is a premade, easy to use local development setup to be used for authoring Laravel applications.
 
-The deliverable of this project are two docker containers running your project via [nginx](https://www.nginx.com/) and [php-fpm](http://php.net/manual/en/install.fpm.php).
+The deliverables of this project are two docker containers running your project via [nginx](https://www.nginx.com/) and [php-fpm](http://php.net/manual/en/install.fpm.php).
 
 
 ## Usage
