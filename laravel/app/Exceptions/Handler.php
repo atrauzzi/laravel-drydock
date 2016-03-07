@@ -1,13 +1,16 @@
-<?php
+<?php namespace App\Exceptions;
 
-namespace App\Exceptions;
-
-use Exception;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+//
+use Psr\Log\LoggerInterface;
+use Illuminate\Mail\Mailer;
+//
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Swift_Message as SwiftMessage;
+use Exception;
 
 
 class Handler extends ExceptionHandler {
@@ -24,6 +27,19 @@ class Handler extends ExceptionHandler {
         ValidationException::class,
     ];
 
+    /** @var \Illuminate\Contracts\Mail\Mailer */
+    protected $mailer;
+
+    /**
+     * Handler constructor.
+     * @param \Psr\Log\LoggerInterface $log
+     * @param \Illuminate\Mail\Mailer $mailer
+     */
+    public function __construct(LoggerInterface $log, Mailer $mailer) {
+        parent::__construct($log);
+        $this->mailer = $mailer;
+    }
+
     /**
      * Report or log an exception.
      *
@@ -37,8 +53,14 @@ class Handler extends ExceptionHandler {
         if($this->shouldReport($e)) {
 
             if(app()->environment() == 'local') {
-                $errorBody = $this->render(null, $e)->getContent();
-                $this->log->error($errorBody);
+
+                $this->mailer->getSwiftMailer()->send(SwiftMessage::newInstance(null)
+                    ->addTo('log@localhost')
+                    ->addFrom('noreply@localhost', 'Laravel Drydock')
+                    ->setBody($this->render(null, $e)->getContent())
+                    ->setContentType('text/html')
+                );
+
             }
             else {
                 parent::report($e);
