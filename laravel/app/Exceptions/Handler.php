@@ -27,7 +27,7 @@ class Handler extends ExceptionHandler {
         ValidationException::class,
     ];
 
-    /** @var \Illuminate\Contracts\Mail\Mailer */
+    /** @var \Illuminate\Mail\Mailer */
     protected $mailer;
 
     /**
