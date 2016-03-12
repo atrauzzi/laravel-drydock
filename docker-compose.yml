@@ -184,7 +184,7 @@ cron:
     RABBITMQ_QUEUE: "laravel"
     MAIL_DRIVER: "smtp"
     MAIL_HOST: "maildev"
-    MAIL_PORT: "1025"
+    MAIL_PORT: "25"
 
 
 worker:
@@ -194,7 +194,7 @@ worker:
   #extends: webapp
   container_name: drydock-worker
   entrypoint: "artisan"
-  command: "queue:listen"
+  command: "queue:work --daemon"
 
   user: ${UID}
 
@@ -230,4 +230,4 @@ worker:
     RABBITMQ_QUEUE: "laravel"
     MAIL_DRIVER: "smtp"
     MAIL_HOST: "maildev"
-    MAIL_PORT: "1025"
+    MAIL_PORT: "25"

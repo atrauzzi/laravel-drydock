@@ -2,9 +2,6 @@
 
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\ServiceProvider;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\SwiftMailerHandler;
-use Swift_Message as SwiftMessage;
 
 
 class AppServiceProvider extends ServiceProvider {
@@ -15,7 +12,7 @@ class AppServiceProvider extends ServiceProvider {
 	 * @param \Illuminate\Contracts\Logging\Log|\Illuminate\Log\Writer $log
 	 * @param \Monolog\Handler\HandlerInterface|\Monolog\Handler\SwiftMailerHandler $swiftMailHandler
 	 */
-	public function boot(Log $log, HandlerInterface $swiftMailHandler) {
+	public function boot(Log $log) {
 
 	}
 
