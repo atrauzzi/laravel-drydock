@@ -25,14 +25,14 @@ case "$OSTYPE" in
     ;;
 esac
 
-OUTPUT=`docker-compose run \
+docker-compose run \
   --rm \
   $HOME_ENV \
   $UID_FLAG \
   $DETACH \
   $TERM_FLAG \
   --entrypoint="$1" \
-  webapp "${@:2}"`
+  webapp "${@:2}"
 
 if $MANUAL_DELETE; then
   echo "Hey Windows user, your command has run!"
