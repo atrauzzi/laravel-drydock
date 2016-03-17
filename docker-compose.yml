@@ -13,7 +13,7 @@ database:
   image: postgres
   container_name: drydock-database
 
-  volumes:
+  volumes:ng
     - "/var/lib/postgresql/data"
 
   environment:
@@ -117,7 +117,7 @@ webapp:
 
 
 web:
-  image: nginx
+  image: nginx:alpine
   container_name: drydock-web
 
   volumes:
