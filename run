@@ -40,6 +40,6 @@ if $MANUAL_DELETE; then
   echo "Unfortunately Docker Compose doesn't support interactive mode yet on Windows."
   echo "Head here to check up on things: https://github.com/docker/compose/issues/2836"
   echo
-  echo "You can check the output of the container with \`docker logs $OUTPUT\`"
-  echo "Delete the container with \`docker rm $OUTPUT\`"
+  echo "You can check the output of the container with \`docker logs CONTAINER_NAME\`"
+  echo "Remember to delete the container with \`docker rm CONTAINER_NAME\`"
 fi
