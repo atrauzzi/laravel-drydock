@@ -129,8 +129,10 @@ as needed:
  ./run composer update --no-dev --prefer-dist --optimize-autoloader
  ./run npm install
  ./run jspm install
- docker --log-level=debug build --file=php.Dockerfile --tag=atrauzzi/laravel-drydock:webapp .
- docker --log-level=debug build --file=web.Dockerfile --tag=atrauzzi/laravel-drydock:web .
+ ./run gulp
+ 
+docker --log-level=debug build --force-rm --no-cache --pull --file=php.Dockerfile --tag=atrauzzi/laravel-drydock:php .
+docker --log-level=debug build --force-rm --no-cache --pull --file=nginx.Dockerfile --tag=atrauzzi/laravel-drydock:nginx .
 ```
 
 This will prepare two images in your local docker image cache that contain your entire project, ready to run!  Keep in mind that most docker registries require that images 
