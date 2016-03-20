@@ -13,7 +13,7 @@ database:
   image: postgres
   container_name: drydock-database
 
-  volumes:ng
+  volumes:
     - "/var/lib/postgresql/data"
 
   environment:
