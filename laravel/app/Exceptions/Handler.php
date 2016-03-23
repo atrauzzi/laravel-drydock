@@ -50,23 +50,21 @@ class Handler extends ExceptionHandler {
      */
     public function report(Exception $e) {
 
-        if($this->shouldReport($e)) {
+        if(
+            $this->shouldReport($e)
+            && app()->environment() == 'local'
+        ) {
 
-            if(app()->environment() == 'local') {
-
-                $this->mailer->getSwiftMailer()->send(SwiftMessage::newInstance(null)
-                    ->addTo('log@localhost')
-                    ->addFrom('noreply@localhost', 'Laravel Drydock')
-                    ->setBody($this->render(null, $e)->getContent())
-                    ->setContentType('text/html')
-                );
-
-            }
-            else {
-                parent::report($e);
-            }
+            $this->mailer->getSwiftMailer()->send(SwiftMessage::newInstance(null)
+                ->addTo('log@localhost')
+                ->addFrom('noreply@localhost', 'Laravel Drydock')
+                ->setBody($this->render(null, $e)->getContent())
+                ->setContentType('text/html')
+            );
 
         }
+        
+        parent::report($e);
 
     }
 
