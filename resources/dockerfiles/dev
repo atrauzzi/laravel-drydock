@@ -35,7 +35,7 @@ RUN pip install hg+https://bitbucket.org/dbenamy/devcron#egg=devcron
 
 RUN touch /var/log/cron.log
 
-ADD /resources/artisan /usr/local/bin/artisan
+COPY /resources/artisan /usr/local/bin/artisan
 RUN chmod +x /usr/local/bin/artisan
 
 RUN chmod 777 /run

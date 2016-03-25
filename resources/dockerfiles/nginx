@@ -1,0 +1,9 @@
+FROM nginx:alpine
+MAINTAINER "Alexander Trauzzi" <atrauzzi@gmail.com>
+
+WORKDIR /tmp
+
+COPY ./laravel/public /var/www/public
+
+COPY /resources/nginx.conf /etc/nginx/nginx.conf
+COPY /resources/nginx.default.conf /etc/nginx/conf.d/default.conf
