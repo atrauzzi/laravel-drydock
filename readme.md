@@ -2,21 +2,25 @@
 
 This project is a premade, easy to use local development setup to be used for authoring Laravel applications.
 
-The deliverables of this project are two docker containers running your project via [nginx](https://www.nginx.com/) and [php-fpm](http://php.net/manual/en/install.fpm.php).
+The deliverables of this project structure are:
+
+ - One development container that is also maintained as an [automated build over at Docker Hub](https://hub.docker.com/r/atrauzzi/laravel-drydock)
+ - Two docker containers capable of running your project via [nginx](https://www.nginx.com/) and [php-fpm](http://php.net/manual/en/install.fpm.php).
 
 
 ## Usage
 
-Please be sure to be using the most current versions of docker (>= 1.10) and docker-compose (>= 1.6).  If you're encountering any issues, this would be a good first thing to check.
+Please be sure to have the most current versions of docker (>= 1.10) and docker-compose (>= 1.6).  If you're encountering any issues, this would be a good first thing to check.
 
 Before getting started, be sure to check the platform specific notes below.  After that:
 
  - Ensure that the environment variable `UID` has been exported.  I suggest adding `export UID` in your default profile
  - Copy the example environment file to a new `.env` file, be sure to provide a valid app key.
  - `./run composer install` (you will likely encounter github's rate limit)
- - `./run artisan migrate` (although the demo doesn't rely on any models)
+ - `./run artisan migrate`
  - `./run npm install`
  - `./run jspm install`
+ - `./run gulp`
  - run `docker-compose up`
 
 These are going to download a considerable amount of dependencies for the front and back end, so be prepared to wait a little.
@@ -35,8 +39,10 @@ Most importantly?  Everything is **standard**!  That means you shouldn't need to
  - Postgres 9.5.*
  - Redis 3.0.*
  - RabbitMQ 3.6.*
+ - JSPM
 
-I've thrown together some inline controllers in `routes.php` that you can use to see the environment and verify that the queues are working.
+I've thrown together some inline controllers in `routes.php` that you can use to see the environment and verify that the queues are working. Be sure to delete them before going live with any containers generated from this project.
+
 
 ### Local Development
 
@@ -50,48 +56,30 @@ The following ports are exposed to the host:
 
 This gives you the convenience of being able to run local GUI tools against the environment - I recommend PhpStorm, DataGrip and Redis Desktop.
 
-Port 8082 is running an email trap that will intercept all outbound emails and show them in a convenient interface.  The project's default exception handler has also been slightly 
-customized to render any exceptions to this email address.  This should be helpful while developing commands and background jobs.
+Port 8082 is running an email trap that will intercept all outbound emails and show them in a convenient interface.  The project's default exception handler has also been 
+customized to render a copy of all exceptions to this email address.  This should be helpful while developing commands and background jobs.
 
 
 #### Linux
-I suggest installing docker-compose using pip so that you can always get the latest version.
+Get the latest version of Docker and Docker Compose installed.  I suggest installing `docker-compose` using pip.
 
 After that, because Docker runs on Linux, consider yourself done!  Everything happens on localhost and is ready for you to use.
 
 #### OSX
-
 A current and working [docker toolbox](https://www.docker.com/products/docker-toolbox) installation should have you covered here.
 
 If you would like to treat your development VM like a local machine, check out these [instructions on setting up NAT forwarding at the command line](https://www.virtualbox.org/manual/ch06.html#natforward).
 You can also configure forwarded ports using the VirtualBox GUI using [the instructions found here](http://ask.xmodulo.com/access-nat-guest-from-host-virtualbox.html).
 
+Take a look below at Meta for some information about Docker's latest beta tool for OSX.
+
+
 #### Windows
-Due to major differences in the environment and filesystems between Windows and Linux, I've been avoiding using docker toolbox until they iron out some lingering bugs.
+Currently, I cannot recommend using Windows for docker-based development.  Until there is an option for running containers in interactive mode, most of drydock's functionality is cut short.
+ 
+Previous versions of this readme do contain some instructions on how to manually set up a virtual machine, although it's quite involved.
 
-In the meantime, I've been using Ubuntu Server running on Hyper-V.  The basic idea is that you only use Windows for GUI tools and do everything else in a terminal connected the VM.
-For getting standard SSH and a good POSIX terminal experience on Windows, I've been using [cmder](http://cmder.net) hosting an instance of [msys2](https://msys2.github.io) bash.
-
-Additionally, I have some steps here to help with getting things set up as transparently as possible, so with a bit of effort, you should have something pleasant to use:
-
- - Set your VM up with an internal switch and configure Windows NAT to share your internet connection
- - Disable Windows Firewall for the internal switch connection
- - Accessing the Windows filesystem from the VM
-    - Create `~/.cifs_credentials` on the VM, it's just two lines `username=` and `password=`
-    - Run `mkdir /mnt/development` on the VM
-    - Enable file sharing for the desired folder on the host
-    - Add the following to `/etc/fstab`
-```
-//[WINDOWSHOST]/[path]/[to]/[folder]  /mnt/development  cifs  defaults,credentials=/home/[you]/.cifs_credentials,_netdev,rw,iocharset=utf8,soft,uid=1000,gid=100 0 0
-```
- - You can pass traffic from localhost into the VM by running this on the Windows host:
-```
-netsh interface portproxy add v4tov4 listenport=[port] connectaddress=[VM's IP address] connectport=[port] protocol=tcp
-```
-
-I don't make any excuses for how involved these steps are.  But if you follow them, they should yield you a good day-to-day setup when dealing with PHP and Docker on Windows.
-Once docker compose has sorted out the last few lingering issues with path translation and bind mounting, I'll update these instructions.
-
+Take a look below at Meta for some information about Docker's latest beta tool for Windows.
 
 ## Meta
 
@@ -112,11 +100,14 @@ The core issue is that all PaaS in some way are restricting the runtime and brea
  
 We know why they do it - it's to offer scalability!  But when we unpack the excuses, it tends to be that the PaaS vendors go too far.
 
+### Docker for Windows and OSX
+On March 24th, 2016, Docker announced [Docker for OSX and Windows](https://beta.docker.com/).  Head to that link and apply for the beta, it should greatly improve the Docker development experience on proprietary platforms.  
+This tool is intended to supplant Docker Toolbox and leverages native virtualization on each platform to deliver the tightest possible experience.
 
 ### Why Laravel?
 
 Due to the extensive number of abstractions it offers, Laravel in many ways can itself be considered a PaaS toolkit that targets PHP!
-So long as you are gentle and configure it correctly, it can intelligently adapt to a huge variety of configurations.
+So long as you are gentle and configure it correctly, it can intelligently adapt to a huge variety of configurations and environments.
 
 In the future, I would like to author an alternate version of Drydock that features [ASP.NET Core](http://live.asp.net) as the runtime.
 

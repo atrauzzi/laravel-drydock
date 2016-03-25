@@ -63,8 +63,14 @@ email:
 # |____________________________________________________________________________________________________________|
 
 webapp:
-  dockerfile: /Dockerfile
-  build: .
+
+  # As a convenience, I keep the latest copy of the development container built.
+  image: atrauzzi/laravel-drydock
+  # If however you would like to modify or manage your own development image, comment out the above line
+  # and uncomment the next two lines.
+  #dockerfile: /Dockerfile
+  #build: .
+
   # See: https://github.com/docker/compose/pull/2458
   #image: drydock-laravel
   container_name: drydock-webapp
@@ -135,8 +141,7 @@ web:
 # |____________________________________________________________________________________________________________|
 
 cron:
-  dockerfile: /Dockerfile
-  build: .
+  image: atrauzzi/laravel-drydock
   # See: https://github.com/docker/compose/issues/1617
   #extends: webapp
   container_name: drydock-cron
@@ -188,8 +193,7 @@ cron:
 
 
 worker:
-  dockerfile: /Dockerfile
-  build: .
+  image: atrauzzi/laravel-drydock
   # See: https://github.com/docker/compose/issues/1617
   #extends: webapp
   container_name: drydock-worker
