@@ -5,19 +5,19 @@ WORKDIR /var/www
 
 RUN apt-get update -y
 RUN apt-get install -y \
-    curl \
+	curl \
 	git \
-    mercurial \
-    python \
-    python-setuptools \
-    php5-pgsql \
-    php5-redis \
-    php5-json \
-    php5-mcrypt \
-    php5-curl \
-    php5-gd \
-    php5-fpm \
-    php5-cli
+	mercurial \
+	python \
+	python-setuptools \
+	php5-pgsql \
+	php5-redis \
+	php5-json \
+	php5-mcrypt \
+	php5-curl \
+	php5-gd \
+	php5-fpm \
+	php5-cli
 
 RUN easy_install pip
 
