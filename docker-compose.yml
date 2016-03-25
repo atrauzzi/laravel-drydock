@@ -63,7 +63,7 @@ email:
 # |____________________________________________________________________________________________________________|
 
 webapp:
-  dockerfile: dev.Dockerfile
+  dockerfile: ./resources/dockerfiles/dev
   build: .
   # See: https://github.com/docker/compose/pull/2458
   #image: drydock-laravel
@@ -135,7 +135,7 @@ web:
 # |____________________________________________________________________________________________________________|
 
 cron:
-  dockerfile: dev.Dockerfile
+  dockerfile: ./resources/dockerfiles/dev
   build: .
   # See: https://github.com/docker/compose/issues/1617
   #extends: webapp
@@ -188,7 +188,7 @@ cron:
 
 
 worker:
-  dockerfile: dev.Dockerfile
+  dockerfile: ./resources/dockerfiles/dev
   build: .
   # See: https://github.com/docker/compose/issues/1617
   #extends: webapp
