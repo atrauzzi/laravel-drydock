@@ -1,0 +1,45 @@
+#!/bin/bash
+
+HOME_ENV="-e HOME=/home"
+UID_FLAG="-u $UID"
+DETACH=""
+MANUAL_DELETE=false
+
+# Quirks...
+#
+# Oh the quirks.
+# On OSX and Windows, you're using a VM as UID 1000. Inside the container, you're root, UID 0!
+# Because of this inconsistency, bad vboxsf things happen and so we have to guide things a little.
+
+case "$OSTYPE" in
+    darwin*)
+      HOME_ENV="-e HOME=/root"
+      UID_FLAG="-u 0"
+    ;;
+    msys)
+      HOME_ENV="-e HOME=//root"
+      UID_FLAG="-u 0"
+      DETACH="-d"
+      MANUAL_DELETE=true
+      TERM_FLAG="-e TERM=vt100"
+    ;;
+esac
+
+docker-compose run \
+  --rm \
+  $HOME_ENV \
+  $UID_FLAG \
+  $DETACH \
+  $TERM_FLAG \
+  --entrypoint="$1" \
+  webapp "${@:2}"
+
+if $MANUAL_DELETE; then
+  echo "Hey Windows user, your command has run!"
+  echo
+  echo "Unfortunately Docker Compose doesn't support interactive mode yet on Windows."
+  echo "Head here to check up on things: https://github.com/docker/compose/issues/2836"
+  echo
+  echo "You can check the output of the container with \`docker logs CONTAINER_NAME\`"
+  echo "Remember to delete the container with \`docker rm CONTAINER_NAME\`"
+fi

@@ -1,0 +1,237 @@
+# Not a V2 config...yet!
+# https://docs.docker.com/compose/compose-file/#versioning
+
+# Pending github issues
+# https://github.com/docker/docker/issues/20708
+# https://github.com/docker/compose/pull/2458
+# https://github.com/docker/compose/issues/1617
+
+#  ____________________________________________________________________________________________________________
+# |____________________________________________________________________________________________________________|
+
+database:
+  image: postgres
+  container_name: drydock-database
+
+  volumes:
+    - "/var/lib/postgresql/data"
+
+  environment:
+    POSTGRES_DB: "drydock"
+    POSTGRES_USER: "drydock"
+    POSTGRES_PASSWORD: ""
+
+  ports:
+    - "5432:5432"
+
+queue:
+  image: rabbitmq:management
+  container_name: drydock-queue
+  hostname: drydockqueue
+
+  environment:
+    RABBITMQ_ERLANG_COOKIE: "drydock-dev"
+    RABBITMQ_DEFAULT_USER: "drydock"
+    RABBITMQ_DEFAULT_PASS: "drydock"
+    RABBITMQ_DEFAULT_VHOST: "/drydock"
+
+  ports:
+    - "8081:15672"
+
+
+cache:
+  image: redis
+  container_name: drydock-cache
+
+  volumes:
+    - "/data"
+
+  ports:
+    - "6379:6379"
+
+#  ____________________________________________________________________________________________________________
+# |____________________________________________________________________________________________________________|
+
+email:
+  image: djfarrelly/maildev
+  container_name: drydock-email
+
+  ports:
+    - "8082:80"
+
+#  ____________________________________________________________________________________________________________
+# |____________________________________________________________________________________________________________|
+
+webapp:
+
+  # As a convenience, I keep the latest copy of the development container built.
+  image: atrauzzi/laravel-drydock
+  # If however you would like to modify or manage your own development image, comment out the above line
+  # and uncomment the next two lines.
+  #dockerfile: /Dockerfile
+  #build: .
+
+  # See: https://github.com/docker/compose/pull/2458
+  #image: drydock-laravel
+  container_name: drydock-webapp
+
+  user: ${UID}
+
+  volumes:
+
+    # Bind-mounts for dev.
+    - "./laravel:/var/www"
+    - "./resources/php-fpm.conf:/etc/php5/fpm/php-fpm.conf"
+    - "./resources/php-fpm.www.conf:/etc/php5/fpm/pool.d/www.conf"
+    - "./resources/crontab:/etc/cron.d/laravel"
+
+  links:
+    - queue:rabbitmq
+    - cache:redis
+    - database:postgres
+    - email:maildev
+
+  #
+  # Development Environment Configuration
+  #
+  # Note: Do not put secret info like API keys here, those still belong in `.env`.
+  # Note: The goal is to not have to rewrite laravel configs, just map Docker defaults to them here.
+  # ToDo: Eventually docker-compose will allow variables to be interpolated.
+  environment:
+    APP_ENV: "local"
+    APP_DEBUG: "true"
+    REDIS_HOST: "redis"
+    REDIS_PORT: "6379"
+    CACHE_DRIVER: "redis"
+    CACHE_PREFIX: "laravel-drydock"
+    SESSION_DRIVER: "redis"
+    DB_CONNECTION: "pgsql"
+    DB_HOST: "postgres"
+    DB_USERNAME: "drydock"
+    DB_PASSWORD: ""
+    DB_DATABASE: "drydock"
+    QUEUE_DRIVER: "rabbitmq"
+    RABBITMQ_HOST: "rabbitmq"
+    RABBITMQ_PORT: "5672"
+    RABBITMQ_VHOST: "/drydock"
+    RABBITMQ_LOGIN: "drydock"
+    RABBITMQ_PASSWORD: "drydock"
+    RABBITMQ_QUEUE: "laravel"
+    MAIL_DRIVER: "smtp"
+    MAIL_HOST: "maildev"
+    MAIL_PORT: "25"
+
+
+web:
+  image: nginx:alpine
+  container_name: drydock-web
+
+  volumes:
+    - "./laravel/public:/var/www/public"
+    - "./resources/nginx.conf:/etc/nginx/nginx.conf"
+    - "./resources/nginx.default.conf:/etc/nginx/conf.d/default.conf"
+
+  links:
+    - webapp
+
+  ports:
+    - "8080:80"
+
+#  ____________________________________________________________________________________________________________
+# |____________________________________________________________________________________________________________|
+
+cron:
+  image: atrauzzi/laravel-drydock
+  # See: https://github.com/docker/compose/issues/1617
+  #extends: webapp
+  container_name: drydock-cron
+  # vixie cron jsut doesn't like running in a container, use devcron instead!
+  entrypoint: "devcron.py"
+  command: ["/etc/cron.d/laravel"]
+
+  user: ${UID}
+
+  volumes:
+    - "./laravel:/var/www"
+    - "./resources/crontab:/etc/cron.d/laravel"
+
+  links:
+    - queue:rabbitmq
+    - cache:redis
+    - database:postgres
+    - email:maildev
+
+  #
+  # Development Environment Configuration
+  #
+  # Note: Do not put secret info like API keys here, those still belong in `.env`.
+  # Note: The goal is to not have to rewrite laravel configs, just map Docker defaults to them here.
+  # ToDo: Eventually docker-compose will allow variables to be interpolated.
+  environment:
+    APP_ENV: "local"
+    APP_DEBUG: "true"
+    REDIS_HOST: "redis"
+    REDIS_PORT: "6379"
+    CACHE_DRIVER: "redis"
+    CACHE_PREFIX: "laravel-drydock"
+    SESSION_DRIVER: "redis"
+    DB_CONNECTION: "pgsql"
+    DB_HOST: "postgres"
+    DB_USERNAME: "drydock"
+    DB_PASSWORD: ""
+    DB_DATABASE: "drydock"
+    QUEUE_DRIVER: "rabbitmq"
+    RABBITMQ_HOST: "rabbitmq"
+    RABBITMQ_PORT: "5672"
+    RABBITMQ_VHOST: "/drydock"
+    RABBITMQ_LOGIN: "drydock"
+    RABBITMQ_PASSWORD: "drydock"
+    RABBITMQ_QUEUE: "laravel"
+    MAIL_DRIVER: "smtp"
+    MAIL_HOST: "maildev"
+    MAIL_PORT: "25"
+
+
+worker:
+  image: atrauzzi/laravel-drydock
+  # See: https://github.com/docker/compose/issues/1617
+  #extends: webapp
+  container_name: drydock-worker
+  entrypoint: "artisan"
+  command: "queue:work --daemon"
+
+  user: ${UID}
+
+  volumes:
+    - "./laravel:/var/www"
+
+  links:
+    - queue:rabbitmq
+    - cache:redis
+    - database:postgres
+    - email:maildev
+
+  # ToDo: Docker compose is still improving their "extends" directive. Eventually we'll be able to omit this by extending the webapp service.
+  environment:
+    APP_ENV: "local"
+    APP_DEBUG: "true"
+    REDIS_HOST: "redis"
+    REDIS_PORT: "6379"
+    CACHE_DRIVER: "redis"
+    CACHE_PREFIX: "laravel-drydock"
+    SESSION_DRIVER: "redis"
+    DB_CONNECTION: "pgsql"
+    DB_HOST: "postgres"
+    DB_USERNAME: "drydock"
+    DB_PASSWORD: ""
+    DB_DATABASE: "drydock"
+    QUEUE_DRIVER: "rabbitmq"
+    RABBITMQ_HOST: "rabbitmq"
+    RABBITMQ_PORT: "5672"
+    RABBITMQ_VHOST: "/drydock"
+    RABBITMQ_LOGIN: "drydock"
+    RABBITMQ_PASSWORD: "drydock"
+    RABBITMQ_QUEUE: "laravel"
+    MAIL_DRIVER: "smtp"
+    MAIL_HOST: "maildev"
+    MAIL_PORT: "25"

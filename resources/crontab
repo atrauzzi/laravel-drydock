@@ -1,0 +1,2 @@
+* * * * * /usr/bin/php /var/www/artisan schedule:run >> /dev/stdout 2>&1
+# This line intentionally left blank.
