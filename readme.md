@@ -29,6 +29,17 @@ If you need to run any commands like `composer` or `artisan`, simply prefix them
 
 Once the environment is running, it will output all server requests, database access, queue access and cache messages.  Repeated queue messages are normal and are just the queue worker polling, the worker may error out a few times until RabbitMQ is fully started.
 
+### Staying in Sync
+
+If you'd like to be able to update your project with changes from drydock, you can set it up as an upstream remote with the following commands:
+
+```
+git remote add drydock git@github.com:atrauzzi/laravel-drydock.git
+git config remote.drydock.pushurl "Don't push to drydock from projects!"
+```
+
+The second command will ensure that you don't accidentally end up trying to push anything from your project to this repository.  Hardly a risk...unless you're me. :)
+
 
 ## What's in the box?
 
