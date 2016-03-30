@@ -198,7 +198,7 @@ worker:
   #extends: webapp
   container_name: drydock-worker
   entrypoint: "artisan"
-  command: "queue:work --daemon"
+  command: "queue:listen --sleep=8"
 
   user: ${UID}
 
