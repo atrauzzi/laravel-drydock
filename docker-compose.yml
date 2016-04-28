@@ -10,11 +10,11 @@
 # |____________________________________________________________________________________________________________|
 
 database:
-  image: postgres
+  image: mdillon/postgis
   container_name: drydock-database
 
   volumes:
-    - "/var/lib/postgresql/data"
+    - "./state/database:/var/lib/postgresql/data"
 
   environment:
     POSTGRES_DB: "drydock"
@@ -40,14 +40,15 @@ queue:
 
 
 cache:
-  image: redis
+  image: redis:alpine
   container_name: drydock-cache
-
-  volumes:
-    - "/data"
+  command: "--appendonly yes"
 
   ports:
-    - "6379:6379"
+    - "6379"
+
+  volumes:
+    - "./state/cache:/data"
 
 #  ____________________________________________________________________________________________________________
 # |____________________________________________________________________________________________________________|
@@ -81,8 +82,8 @@ webapp:
 
     # Bind-mounts for dev.
     - "./laravel:/var/www"
-    - "./resources/php-fpm.conf:/etc/php5/fpm/php-fpm.conf"
-    - "./resources/php-fpm.www.conf:/etc/php5/fpm/pool.d/www.conf"
+    - "./resources/php-fpm.conf:/etc/php/7.0/fpm/php-fpm.conf"
+    - "./resources/php-fpm.www.conf:/etc/php/7.0/fpm/pool.d/www.conf"
     - "./resources/crontab:/etc/cron.d/laravel"
 
   links:
