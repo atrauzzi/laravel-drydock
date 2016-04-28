@@ -42,7 +42,6 @@ queue:
 cache:
   image: redis:alpine
   container_name: drydock-cache
-  command: "--appendonly yes"
 
   ports:
     - "6379"
