@@ -10,6 +10,10 @@ The deliverables of this project structure are:
 
 ## Usage
 
+### Local Development - With Infrastructure
+
+At some point, you'll want to run this project in an environment that is similar to what you will be deploying to.  This is what laravel-drydock is all about and we accomplish this using Docker containers.
+
 Please be sure to have the most current versions of docker (>= 1.10) and docker-compose (>= 1.6).  If you're encountering any issues, this would be a good first thing to check.
 
 Before getting started, be sure to check the platform specific notes below.  After that:
@@ -29,23 +33,11 @@ If you need to run any commands like `composer` or `artisan`, simply prefix them
 
 Once the environment is running, it will output all server requests, database access, queue access and cache messages.  Repeated queue messages are normal and are just the queue worker polling, the worker may error out a few times until RabbitMQ is fully started.
 
-### Staying in Sync
-
-If you'd like to be able to update your project with changes from drydock, you can set it up as an upstream remote with the following commands:
-
-```
-git remote add drydock git@github.com:atrauzzi/laravel-drydock.git
-git config remote.drydock.pushurl "Don't push to drydock from projects!"
-```
-
-The second command will ensure that you don't accidentally end up trying to push anything from your project to this repository.  Hardly a risk...unless you're me. :)
-
-
 ## What's in the box?
 
 Most importantly?  Everything is **standard**!  That means you shouldn't need to be aware of platform or hosting specific quirks.  The default docs for the various projects should always be sufficient.
 
- - PHP 5.6.*
+ - PHP 7
  - Laravel 5.2.*
  - Postgres 9.5.*
  - Redis 3.0.*
@@ -53,9 +45,6 @@ Most importantly?  Everything is **standard**!  That means you shouldn't need to
  - JSPM
 
 I've thrown together some inline controllers in `routes.php` that you can use to see the environment and verify that the queues are working. Be sure to delete them before going live with any containers generated from this project.
-
-
-### Local Development
 
 The following ports are exposed to the host:
 
@@ -83,13 +72,42 @@ You can also configure forwarded ports using the VirtualBox GUI using [the instr
 
 Take a look below at Meta for some information about Docker's latest beta tool for OSX.
 
-
 #### Windows
 Currently, I cannot recommend using Windows for docker-based development.  Until there is an option for running containers in interactive mode, most of drydock's functionality is cut short.
  
 Previous versions of this readme do contain some instructions on how to manually set up a virtual machine, although it's quite involved.
 
 Take a look below at Meta for some information about Docker's latest beta tool for Windows.
+
+### Local Development - Standalone
+
+You might find yourself in a situation where you aren't able to or don't need to use the full Dockerized setup.  In these cases, this project is still a pure Laravel project, ready out of the box
+to be run without any drivers configured.
+
+If you choose to do this, all state will be kept on the filesystem via sqlite and files in the `laravel/storage/framework` directory.
+
+You'll still have to make sure to install [composer](http://getcomposer.org) and PHP on your machine.  Then it's just a matter of going into the `laravel` directory and typing:
+
+```
+./artisan serve
+```
+
+If you wish to use the default front end, you'll also need node, npm, gulp and jspm installed.
+
+Of course, once you're ready to transition to using the containerized setup, your project requires **zero** changes.  If you are working with other developers who are using the containerized setup, they won't have to do a thing.
+
+
+### Staying in Sync
+
+If you'd like to be able to update your project with changes from drydock, you can set it up as an upstream remote with the following commands:
+
+```
+git remote add drydock git@github.com:atrauzzi/laravel-drydock.git
+git config remote.drydock.pushurl "Don't push to drydock from projects!"
+```
+
+The second command will ensure that you don't accidentally end up trying to push anything from your project to this repository.  Hardly a risk...unless you're me. :)
+
 
 ## Meta
 

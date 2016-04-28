@@ -1,4 +1,4 @@
-FROM ubuntu:wily
+FROM ubuntu:xenial
 MAINTAINER "Alexander Trauzzi" <atrauzzi@gmail.com>
 
 WORKDIR /var/www
@@ -10,18 +10,22 @@ RUN apt-get install -y \
 	mercurial \
 	python \
 	python-setuptools \
-	php5-pgsql \
-	php5-redis \
-	php5-json \
-	php5-mcrypt \
-	php5-curl \
-	php5-gd \
-	php5-fpm \
-	php5-cli
+    php7.0-pgsql \
+    php7.0-sqlite \
+	php-redis \
+	php7.0-json \
+	php7.0-mcrypt \
+	php7.0-curl \
+	php7.0-gd \
+	php7.0-fpm \
+    php7.0-dom \
+    php7.0-bcmath \
+    php7.0-mbstring \
+	php7.0-cli
 
 RUN easy_install pip
 
-RUN php5enmod mcrypt
+RUN phpenmod mcrypt
 
 RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
 RUN apt-get install -y nodejs
@@ -45,5 +49,5 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 9000
 
-ENTRYPOINT ["/usr/sbin/php5-fpm"]
+ENTRYPOINT ["/usr/sbin/php-fpm7.0"]
 CMD ["-F", "-R"]
