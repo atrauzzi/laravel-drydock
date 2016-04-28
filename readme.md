@@ -111,11 +111,11 @@ The second command will ensure that you don't accidentally end up trying to push
 
 ## Meta
 
-After spending lots of time with various PaaS offerings, it has dawned on me that each one ultimately disappoints.  I've had to support a few teams now attempting to use 
-services like Google Cloud, Azure and AWS.  Each platform has a way of saddling my team with cumbersome proprietary environment quirks that could swallow hours of productivity. 
+After spending lots of time with various PaaS offerings, it dawned on me that they ultimately disappoint.  I've had to support a few teams now attempting to use
+services like Google Cloud, Azure Web Sites and Amazon Elastic Beanstalk.  Each platform has a way of saddling my team with cumbersome proprietary environment quirks that swallow hours of productivity.
 Eventually, you end up forced to make compromises and additions to your project that end up feeling a lot like technical debt.
 
-The core issue is that all PaaS in some way are restricting the runtime and breaking PHP and the ecosystem of libraries we enjoy:
+The core issue is that all PaaS offerings are in some way are restricting the runtime, thus breaking PHP and the ecosystem of libraries we enjoy:
 
  - Inability to write to the local filesystem (only reason I care about this is for cached templates and optimizations)
  - Non-standard customizations to the runtime - especially when it comes to CURL
