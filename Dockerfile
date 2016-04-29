@@ -10,17 +10,18 @@ RUN apt-get install -y \
 	mercurial \
 	python \
 	python-setuptools \
-    php7.0-pgsql \
-    php7.0-sqlite \
+	php7.0-pgsql \
+	php7.0-sqlite \
 	php-redis \
 	php7.0-json \
 	php7.0-mcrypt \
+	php7.0-zip
 	php7.0-curl \
 	php7.0-gd \
 	php7.0-fpm \
-    php7.0-dom \
-    php7.0-bcmath \
-    php7.0-mbstring \
+	php7.0-dom \
+	php7.0-bcmath \
+	php7.0-mbstring \
 	php7.0-cli
 
 RUN easy_install pip
