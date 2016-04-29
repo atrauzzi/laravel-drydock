@@ -15,7 +15,7 @@ RUN apt-get install -y \
 	php-redis \
 	php7.0-json \
 	php7.0-mcrypt \
-	php7.0-zip
+	php7.0-zip \
 	php7.0-curl \
 	php7.0-gd \
 	php7.0-fpm \
