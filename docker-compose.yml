@@ -12,10 +12,6 @@
 database:
   image: mdillon/postgis
   container_name: drydock-database
-  user: ${UID}
-
-  volumes:
-    - "./state/database:/var/lib/postgresql/data"
 
   environment:
     POSTGRES_DB: "drydock"
@@ -29,7 +25,6 @@ queue:
   image: rabbitmq:management
   container_name: drydock-queue
   hostname: drydockqueue
-  user: ${UID}
 
   environment:
     RABBITMQ_ERLANG_COOKIE: "drydock-dev"
@@ -44,13 +39,9 @@ queue:
 cache:
   image: redis:alpine
   container_name: drydock-cache
-  user: ${UID}
 
   ports:
     - "6379"
-
-  volumes:
-    - "./state/cache:/data"
 
 #  ____________________________________________________________________________________________________________
 # |____________________________________________________________________________________________________________|
@@ -58,7 +49,6 @@ cache:
 email:
   image: djfarrelly/maildev
   container_name: drydock-email
-  user: ${UID}
 
   ports:
     - "8082:80"
