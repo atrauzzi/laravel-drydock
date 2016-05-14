@@ -31,7 +31,7 @@ RUN phpenmod mcrypt
 RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
 RUN apt-get install -y nodejs
 
-RUN npm install -g jspm
+RUN npm install -g jspm@beta
 RUN npm install -g gulp
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
