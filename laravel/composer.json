@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "vladimir-yuldashev/laravel-queue-rabbitmq": "5.2.x-dev",
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "5.*",
         "league/oauth2-client": "1.*",
         "predis/predis": "1.*",
         "barryvdh/laravel-debugbar": "^2.1"
