@@ -105,7 +105,7 @@ services:
     # See: https://github.com/docker/compose/issues/1617
     #extends: webapp
     container_name: drydock-cron
-    # vixie cron jsut doesn't like running in a container, use devcron instead!
+    # vixie cron just doesn't like running in a container, use devcron instead!
     entrypoint: "devcron.py"
     command: ["/etc/cron.d/laravel"]
     env_file: .development.env
