@@ -22,6 +22,7 @@ The second command will ensure that you don't accidentally end up trying to push
 Then, run:
 
 ```
+git fetch drydock
 git merge drydock/master
 ```
 

@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory=$false)] [string] $entrypoint,
-    [Parameter(ValueFromRemainingArguments=$false)] $remainingArgs
+    [Parameter(ValueFromRemainingArguments=$true)] $remainingArgs
 )
 
 if(!$entrypoint) {
