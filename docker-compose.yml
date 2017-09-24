@@ -56,8 +56,8 @@ services:
 
       # Bind-mounts for dev.
       - "./laravel:/var/www"
-      - "./resources/php-fpm.conf:/etc/php/7.0/fpm/php-fpm.conf"
-      - "./resources/php-fpm.www.conf:/etc/php/7.0/fpm/pool.d/www.conf"
+      - "./resources/php-fpm.conf:/etc/php/7.1/fpm/php-fpm.conf"
+      - "./resources/php-fpm.www.conf:/etc/php/7.1/fpm/pool.d/www.conf"
       - "./resources/crontab:/etc/cron.d/laravel"
       # Before anyone loses their mind over this... It's only for development!
       - "/home:/home"

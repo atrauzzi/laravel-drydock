@@ -5,25 +5,25 @@ WORKDIR /tmp
 
 RUN apt-get update -y
 RUN apt-get install -y \
-	php7.0-pgsql \
-	php7.0-sqlite \
+	php7.1-pgsql \
+	php7.1-sqlite \
 	php-redis \
-	php7.0-json \
-	php7.0-mcrypt \
-	php7.0-curl \
-	php7.0-zip \
-	php7.0-gd \
-	php7.0-fpm \
-	php7.0-dom \
-	php7.0-bcmath \
-	php7.0-mbstring \
-	php7.0-cli
+	php7.1-json \
+	php7.1-mcrypt \
+	php7.1-curl \
+	php7.1-zip \
+	php7.1-gd \
+	php7.1-fpm \
+	php7.1-dom \
+	php7.1-bcmath \
+	php7.1-mbstring \
+	php7.1-cli
 
 RUN phpenmod mcrypt
 
 COPY ./laravel /var/www
-COPY ./resources/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf
-COPY ./resources/php-fpm.www.conf /etc/php/7.0/fpm/pool.d/www.conf
+COPY ./resources/php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
+COPY ./resources/php-fpm.www.conf /etc/php/7.1/fpm/pool.d/www.conf
 COPY ./resources/artisan /usr/local/bin/artisan
 RUN chmod +x /usr/local/bin/artisan
 
@@ -31,5 +31,5 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 9000
 
-ENTRYPOINT ["/usr/sbin/php-fpm7.0"]
+ENTRYPOINT ["/usr/sbin/php-fpm7.1"]
 CMD ["-F", "-R"]
