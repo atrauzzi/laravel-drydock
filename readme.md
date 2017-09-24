@@ -7,7 +7,6 @@ The deliverables of this project structure are:
  - One development container that is also maintained as an [automated build over at Docker Hub](https://hub.docker.com/r/atrauzzi/laravel-drydock)
  - Two docker containers capable of running your project via [nginx](https://www.nginx.com/) and [php-fpm](http://php.net/manual/en/install.fpm.php).
 
-
 ## Installation
 
 Inside your existing Laravel project, set laravel drydock up as an upstream remote with the following commands:
@@ -45,6 +44,7 @@ If you've just installed Laravel, you will also want to install all your depende
 
 ```
 ./run composer install
+./run composer require predis/predis
 ```
 
 As you can see, the run shell script simply forwards whatever you pass to it into the running container.
