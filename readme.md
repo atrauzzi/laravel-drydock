@@ -67,7 +67,7 @@ The following ports are exposed to the host:
 
 This gives you the convenience of being able to run local GUI tools against the environment - I recommend PhpStorm, DataGrip and Redis Desktop.
 
-Port `8082` is running an email trap that will intercept all outbound emails and show them in a convenient interface.  The project's default exception handler has also been customized to render a copy of all exceptions to this email address.  This should be helpful while developing commands and background jobs.
+Port `8082` is running an email trap that will intercept all outbound emails and show them in a convenient interface.
 
 ## Meta
 
