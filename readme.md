@@ -8,23 +8,46 @@ The deliverables of this project structure are:
  - Two docker containers capable of running your project via [nginx](https://www.nginx.com/) and [php-fpm](http://php.net/manual/en/install.fpm.php).
 
 
-## Usage
+## Installation
 
 Inside your existing Laravel project, set laravel drydock up as an upstream remote with the following commands:
 
 ```
 git remote add drydock git@github.com:atrauzzi/laravel-drydock.git
 git config remote.drydock.pushurl "Don't push to drydock from projects!"
-```
-
-The second command will ensure that you don't accidentally end up trying to push anything from your project to this repository.  Hardly a risk...unless you're me. :)
-
-Then, run:
-
-```
 git fetch drydock
-git merge drydock/master
+git checkout drydock/master *
 ```
+
+This will bring the drydock files into your project.  If you don't have one already, you will also need a copy of Laravel!
+
+```
+git remote add laravel git@github.com:laravel/laravel.git
+git config remote.laravel.pushurl "Don't push to laravel from projects!"
+git fetch laravel
+git checkout laravel/master *
+```
+
+Remember, you can always grab a different version other than the latest by substituting `master` with a valid tag name from [laravel/laravel](https://github.com/laravel/laravel).
+
+## Running
+
+Starting your application locally is as simple as:
+
+```
+docker-compose up -d
+```
+
+Be aware that depending on the state of your project, laravel and drydock, some environment configuration may have drifted.  That said, I will always try to keep drydock working with the latest version of Laravel.
+Feel free to open a ticket with any concerns or issues that might be affecting the default configuration.
+
+If you've just installed Laravel, you will also want to install all your dependencies:
+
+```
+./run composer install
+```
+
+As you can see, the run shell script simply forwards whatever you pass to it into the running container.
 
 ## What's in the box?
 
