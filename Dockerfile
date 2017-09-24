@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:artful
 MAINTAINER "Alexander Trauzzi" <atrauzzi@gmail.com>
 
 WORKDIR /var/www
@@ -10,29 +10,23 @@ RUN apt-get install -y \
 	mercurial \
 	python \
 	python-setuptools \
-	php7.0-pgsql \
-	php7.0-sqlite \
+	php7.1-pgsql \
+	php7.1-sqlite \
 	php-redis \
-	php7.0-json \
-	php7.0-mcrypt \
-	php7.0-zip \
-	php7.0-curl \
-	php7.0-gd \
-	php7.0-fpm \
-	php7.0-dom \
-	php7.0-bcmath \
-	php7.0-mbstring \
-	php7.0-cli
+	php7.1-json \
+	php7.1-mcrypt \
+	php7.1-zip \
+	php7.1-curl \
+	php7.1-gd \
+	php7.1-fpm \
+	php7.1-dom \
+	php7.1-bcmath \
+	php7.1-mbstring \
+	php7.1-cli
 
 RUN easy_install pip
 
 RUN phpenmod mcrypt
-
-RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
-RUN apt-get install -y nodejs
-
-RUN npm install -g jspm@beta
-RUN npm install -g gulp
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -50,5 +44,5 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 9000
 
-ENTRYPOINT ["/usr/sbin/php-fpm7.0"]
+ENTRYPOINT ["/usr/sbin/php-fpm7.1"]
 CMD ["-F", "-R"]

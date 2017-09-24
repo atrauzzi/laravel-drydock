@@ -1,8 +1,0 @@
-/vendor
-/node_modules
-Homestead.yaml
-Homestead.json
-.env
-/public/css
-/public/jspm_packages
-*.log

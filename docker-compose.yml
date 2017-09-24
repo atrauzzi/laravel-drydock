@@ -18,16 +18,6 @@ services:
     ports:
       - "5432:5432"
 
-  queue:
-    image: rabbitmq:management
-    container_name: drydock-queue
-    hostname: drydockqueue
-    env_file: .development.env
-
-    ports:
-      - "8081:15672"
-
-
   cache:
     image: redis:alpine
     container_name: drydock-cache
@@ -50,7 +40,7 @@ services:
 
   webapp:
 
-    # As a convenience, I keep the latest copy of the development container built.
+    # I keep the latest copy of the development container built.
     image: atrauzzi/laravel-drydock
     # If however you would like to modify or manage your own development image, comment out the above line
     # and uncomment the next two lines.
@@ -76,7 +66,6 @@ services:
       - "/etc/group:/etc/group"
 
     links:
-      - queue:rabbitmq
       - cache:redis
       - database:postgres
       - email:maildev
@@ -116,7 +105,6 @@ services:
       - "./resources/crontab:/etc/cron.d/laravel"
 
     links:
-      - queue:rabbitmq
       - cache:redis
       - database:postgres
       - email:maildev
@@ -136,7 +124,6 @@ services:
       - "./laravel:/var/www"
 
     links:
-      - queue:rabbitmq
       - cache:redis
       - database:postgres
       - email:maildev
