@@ -2,97 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="004d382c-9fb5-4ac9-9361-79c8b72cd6a0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/.env.example" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/.gitattributes" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Console/Commands/Inspire.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Console/Kernel.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Events/Event.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Exceptions/Handler.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/Controllers/Auth/AuthController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/Controllers/Auth/PasswordController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/Controllers/Controller.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/Kernel.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/Middleware/Authenticate.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/Middleware/EncryptCookies.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/Middleware/RedirectIfAuthenticated.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/Middleware/VerifyCsrfToken.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/Requests/BeginOauth.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/Requests/CompleteOauth.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/Requests/Request.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Http/routes.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Jobs/Job.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Jobs/TestJob.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Listeners/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Policies/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Providers/AppServiceProvider.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Providers/AuthServiceProvider.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Providers/EventServiceProvider.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/Providers/RouteServiceProvider.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/app/User.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/artisan" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/bootstrap/app.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/bootstrap/autoload.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/bootstrap/cache/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/composer.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/composer.lock" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/app.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/auth.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/broadcasting.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/cache.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/compile.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/database.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/filesystems.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/mail.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/queue.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/services.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/session.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/config/view.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/database/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/database/factories/ModelFactory.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/database/migrations/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/database/migrations/2014_10_12_000000_create_users_table.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/database/migrations/2014_10_12_100000_create_password_resets_table.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/database/migrations/2016_01_30_070522_create_failed_jobs_table.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/database/seeds/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/database/seeds/DatabaseSeeder.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/gulpfile.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/phpunit.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/public/.htaccess" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/public/favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/public/index.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/public/jspm.browser.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/public/jspm.config.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/public/lib/welcome.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/public/robots.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/public/web.config" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/readme.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/resources/assets/sass/app.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/resources/lang/en/auth.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/resources/lang/en/pagination.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/resources/lang/en/passwords.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/resources/lang/en/validation.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/resources/views/errors/503.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/resources/views/test_email.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/resources/views/vendor/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/resources/views/welcome.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/server.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/storage/app/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/storage/app/public/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/storage/debugbar/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/storage/framework/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/storage/framework/cache/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/storage/framework/sessions/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/storage/framework/views/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/storage/logs/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/tests/ExampleTest.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/laravel/tests/TestCase.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dockerfile" afterPath="$PROJECT_DIR$/Dockerfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docker-compose.yml" afterPath="$PROJECT_DIR$/docker-compose.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run" afterPath="$PROJECT_DIR$/run" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run.ps1" afterPath="$PROJECT_DIR$/run.ps1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.development.env" afterPath="$PROJECT_DIR$/.development.env" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -109,8 +19,8 @@
       <find>workdir</find>
       <find>rabbitmq</find>
       <find>rabbit</find>
-      <find>queue</find>
       <find>cli:</find>
+      <find>queue</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -123,6 +33,7 @@
         <option value="$PROJECT_DIR$/run" />
         <option value="$PROJECT_DIR$/run.ps1" />
         <option value="$PROJECT_DIR$/Dockerfile" />
+        <option value="$PROJECT_DIR$/.development.env" />
       </list>
     </option>
   </component>
@@ -162,16 +73,6 @@
               <item name="laravel-drydock" type="b2602c69:ProjectViewProjectNode" />
               <item name="laravel-drydock" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
-            <path>
-              <item name="laravel-drydock" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravel-drydock" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="laravel" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="laravel-drydock" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravel-drydock" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="state" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -206,17 +107,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1506223560867</updated>
-      <workItem from="1506223562111" duration="2448000" />
+      <workItem from="1506223562111" duration="2523000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2448000" />
+    <option name="totallyTimeSpent" value="2523000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="3440" height="1440" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1295642" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1295642" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329429" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -283,6 +184,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="9" lean-forward="true" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.development.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
