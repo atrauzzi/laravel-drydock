@@ -27,3 +27,9 @@ package.json
 phpunit.xml
 readme.md
 phpspec.yml
+
+Dockerfile
+docker-compose.yml
+run
+run.ps1
+resources
