@@ -55,7 +55,7 @@ services:
     volumes:
 
       # Bind-mounts for dev.
-      - "./laravel:/var/www"
+      - ".:/var/www"
       - "./resources/php-fpm.conf:/etc/php/7.1/fpm/php-fpm.conf"
       - "./resources/php-fpm.www.conf:/etc/php/7.1/fpm/pool.d/www.conf"
       - "./resources/crontab:/etc/cron.d/laravel"
@@ -76,7 +76,7 @@ services:
     container_name: drydock-web
 
     volumes:
-      - "./laravel/public:/var/www/public"
+      - "./public:/var/www/public"
       - "./resources/nginx.conf:/etc/nginx/nginx.conf"
       - "./resources/nginx.default.conf:/etc/nginx/conf.d/default.conf"
 
@@ -101,7 +101,7 @@ services:
     user: ${UID}
 
     volumes:
-      - "./laravel:/var/www"
+      - ".:/var/www"
       - "./resources/crontab:/etc/cron.d/laravel"
 
     links:
@@ -121,7 +121,7 @@ services:
     user: ${UID}
 
     volumes:
-      - "./laravel:/var/www"
+      - ".:/var/www"
 
     links:
       - cache:redis

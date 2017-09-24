@@ -1,28 +1,29 @@
-laravel/bootstrap/cache/services.php
+bootstrap/cache/services.php
 
-laravel/storage/app/*
-laravel/storage/framework/cache/*
-laravel/storage/framework/sessions/*
-laravel/storage/framework/views/*
-laravel/storage/logs/*
+storage/app/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
 
-laravel/vendor/**/test*
-laravel/vendor/**/tests*
-laravel/vendor/**/Tests*
+vendor/**/test*
+vendor/**/tests*
+vendor/**/Tests*
 
-laravel/**/*node_modules
+**/*node_modules
 
-laravel/**.git
-laravel/.idea
-laravel/**.gitignore
-laravel/**.gitattributes
-laravel/**.sass-cache
-laravel/*.env*
-laravel/composer.json
+**.git
+.idea
+**.gitignore
+**.gitattributes
+**.sass-cache
+*.env*
+composer.json
 
-laravel/?ulpfile.js
-laravel/?untfile.js
-laravel/package.json
-laravel/phpunit.xml
-laravel/readme.md
-laravel/phpspec.yml
+*.config.js
+?ulpfile.js
+?untfile.js
+package.json
+phpunit.xml
+readme.md
+phpspec.yml
