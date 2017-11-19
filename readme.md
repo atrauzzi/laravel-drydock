@@ -9,6 +9,8 @@ The deliverables of this project structure are:
 
 ## Installation
 
+### Adding Drydock to Existing Projects
+
 Inside your existing Laravel project, set laravel drydock up as an upstream remote with the following commands:
 
 ```
@@ -18,7 +20,9 @@ git fetch drydock
 git checkout drydock/master *
 ```
 
-This will bring the drydock files into your project.  If you don't have one already, you will also need a copy of Laravel!
+### Adding Laravel to Drydock
+
+Alternatively, you can go the other way and add Laravel to a checkout of drydock.
 
 ```
 git remote add laravel git@github.com:laravel/laravel.git

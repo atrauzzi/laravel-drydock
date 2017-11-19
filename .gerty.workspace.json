@@ -1,0 +1,34 @@
+{
+    "name": "Laravel Drydock",
+    "repositories": {},
+    "processes": {
+        "web": {
+            "name": "Web",
+            "type": 1,
+            "startCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "up",
+                    "--no-deps",
+                    "webapp web"
+                ],
+                "cwd": ""
+            },
+            "stopCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "stop",
+                    "webapp web"
+                ],
+                "cwd": ""
+            },
+            "editCommand": null,
+            "checkCommand": null,
+            "killCommand": null,
+            "dependsOn": []
+        }
+    },
+    "hosts": [],
+    "webpackConfigs": null,
+    "dockerComposeFiles": null
+}
