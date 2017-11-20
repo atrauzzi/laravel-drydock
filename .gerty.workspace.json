@@ -9,7 +9,6 @@
                 "executable": "docker-compose",
                 "parameters": [
                     "up",
-                    "--no-deps",
                     "webapp web"
                 ],
                 "cwd": ""
@@ -43,6 +42,102 @@
                 "parameters": [
                     "stop",
                     "cache"
+                ],
+                "cwd": ""
+            },
+            "editCommand": null,
+            "checkCommand": null,
+            "killCommand": null,
+            "dependsOn": []
+        },
+        "database": {
+            "name": "Database",
+            "type": 2,
+            "startCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "up",
+                    "database"
+                ],
+                "cwd": ""
+            },
+            "stopCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "stop",
+                    "database"
+                ],
+                "cwd": ""
+            },
+            "editCommand": null,
+            "checkCommand": null,
+            "killCommand": null,
+            "dependsOn": []
+        },
+        "mail": {
+            "name": "Mail",
+            "type": 2,
+            "startCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "up",
+                    "mail"
+                ],
+                "cwd": ""
+            },
+            "stopCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "stop",
+                    "mail"
+                ],
+                "cwd": ""
+            },
+            "editCommand": null,
+            "checkCommand": null,
+            "killCommand": null,
+            "dependsOn": []
+        },
+        "cron": {
+            "name": "Cron",
+            "type": 1,
+            "startCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "up",
+                    "cron"
+                ],
+                "cwd": ""
+            },
+            "stopCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "stop",
+                    "cron"
+                ],
+                "cwd": ""
+            },
+            "editCommand": null,
+            "checkCommand": null,
+            "killCommand": null,
+            "dependsOn": []
+        },
+        "worker": {
+            "name": "Worker",
+            "type": 1,
+            "startCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "up",
+                    "worker"
+                ],
+                "cwd": ""
+            },
+            "stopCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "stop",
+                    "worker"
                 ],
                 "cwd": ""
             },
