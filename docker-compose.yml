@@ -65,12 +65,6 @@ services:
       - "/etc/shadow:/etc/shadow"
       - "/etc/group:/etc/group"
 
-    links:
-      - cache:redis
-      - database:postgres
-      - email:maildev
-
-
   web:
     image: nginx:alpine
     container_name: drydock-web
@@ -79,9 +73,6 @@ services:
       - "./public:/var/www/public"
       - "./resources/nginx.conf:/etc/nginx/nginx.conf"
       - "./resources/nginx.default.conf:/etc/nginx/conf.d/default.conf"
-
-    links:
-      - webapp
 
     ports:
       - "8080:80"
@@ -104,12 +95,6 @@ services:
       - ".:/var/www"
       - "./resources/crontab:/etc/cron.d/laravel"
 
-    links:
-      - cache:redis
-      - database:postgres
-      - email:maildev
-
-
   worker:
     image: atrauzzi/laravel-drydock
     # See: https://github.com/docker/compose/issues/1617
@@ -122,8 +107,3 @@ services:
 
     volumes:
       - ".:/var/www"
-
-    links:
-      - cache:redis
-      - database:postgres
-      - email:maildev

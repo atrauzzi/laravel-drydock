@@ -26,6 +26,30 @@
             "checkCommand": null,
             "killCommand": null,
             "dependsOn": []
+        },
+        "cache": {
+            "name": "Cache",
+            "type": 2,
+            "startCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "up",
+                    "cache"
+                ],
+                "cwd": ""
+            },
+            "stopCommand": {
+                "executable": "docker-compose",
+                "parameters": [
+                    "stop",
+                    "cache"
+                ],
+                "cwd": ""
+            },
+            "editCommand": null,
+            "checkCommand": null,
+            "killCommand": null,
+            "dependsOn": []
         }
     },
     "hosts": [],
