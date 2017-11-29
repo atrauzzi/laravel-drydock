@@ -42,7 +42,5 @@ RUN chmod 770 /home
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-EXPOSE 9000
-
 ENTRYPOINT ["/usr/sbin/php-fpm7.1"]
 CMD ["-F", "-R"]
