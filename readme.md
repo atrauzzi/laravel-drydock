@@ -17,8 +17,16 @@ Inside your existing Laravel project, set laravel drydock up as an upstream remo
 git remote add drydock git@github.com:atrauzzi/laravel-drydock.git
 git config remote.drydock.pushurl "Don't push to drydock from projects!"
 git fetch drydock
-git checkout drydock/master \*
 ```
+
+ - Linux, OSX or any unix, run:
+   ```
+   git checkout drydock/master \*
+   ```
+ - Windows
+   ```
+   git checkout drydock/master *
+   ```
 
 ### Adding Laravel to Drydock
 
@@ -28,8 +36,16 @@ Alternatively, you can go the other way and add Laravel to a checkout of drydock
 git remote add laravel git@github.com:laravel/laravel.git
 git config remote.laravel.pushurl "Don't push to laravel from projects!"
 git fetch laravel
-git checkout laravel/master \*
 ```
+
+ - Linux, OSX or any unix, run:
+   ```
+   git checkout laravel/master \*
+   ```
+ - Windows
+   ```
+   git checkout laravel/master *
+   ```
 
 Remember, you can always grab a different version other than the latest by substituting `master` with a valid tag name from [laravel/laravel](https://github.com/laravel/laravel).
 
