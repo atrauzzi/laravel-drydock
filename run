@@ -1,27 +1,5 @@
-#!/bin/bash
 
-HOME_ENV="-e HOME=/home"
-UID_FLAG="-u $UID"
-DETACH=""
-
-# Quirks...
-#
-# Oh the quirks.
-# On macOS, you're using a VM as UID 1000. Inside the container, you're root, UID 0!
-# Because of this inconsistency, bad vboxsf things happen and so we have to guide things a little.
-
-case "$OSTYPE" in
-    darwin*)
-      HOME_ENV="-e HOME=/root"
-      UID_FLAG="-u 0"
-    ;;
-esac
-  
 docker-compose exec \
-  --rm \
-  $HOME_ENV \
-  $UID_FLAG \
-  $DETACH \
   webapp \
   $1 \
   "${@:2}"
