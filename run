@@ -22,6 +22,6 @@ docker-compose exec \
   $HOME_ENV \
   $UID_FLAG \
   $DETACH \
-  webapp
+  webapp \
   $1 \
   "${@:2}"
