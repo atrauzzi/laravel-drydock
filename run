@@ -16,11 +16,12 @@ case "$OSTYPE" in
       UID_FLAG="-u 0"
     ;;
 esac
-
+  
 docker-compose exec \
   --rm \
   $HOME_ENV \
   $UID_FLAG \
   $DETACH \
-  --entrypoint="$1" \
-  webapp "${@:2}"
+  webapp
+  $1 \
+  "${@:2}"
