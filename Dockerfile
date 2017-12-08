@@ -30,6 +30,8 @@ RUN phpenmod mcrypt
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN composer global require "laravel/installer"
+
 RUN pip install hg+https://bitbucket.org/dbenamy/devcron#egg=devcron
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
