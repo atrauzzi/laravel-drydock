@@ -42,9 +42,6 @@ RUN npm install -g ts-node
 
 RUN touch /var/log/cron.log
 
-COPY /resources/artisan /usr/local/bin/artisan
-RUN chmod +x /usr/local/bin/artisan
-
 RUN chmod 777 /run
 RUN chmod 770 /home
 
