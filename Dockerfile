@@ -32,6 +32,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN pip install hg+https://bitbucket.org/dbenamy/devcron#egg=devcron
 
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt-get install -y nodejs
+
+RUN npm install -g yarn
+RUN npm install -g typescript
+RUN npm install -g webpack
+RUN npm install -g ts-node
+
 RUN touch /var/log/cron.log
 
 COPY /resources/artisan /usr/local/bin/artisan
