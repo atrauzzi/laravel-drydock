@@ -100,8 +100,8 @@ services:
     # See: https://github.com/docker/compose/issues/1617
     #extends: webapp
     container_name: drydock-worker
-    entrypoint: "artisan"
-    command: "queue:listen --sleep=8"
+    entrypoint: "php"
+    command: "artisan queue:listen --sleep=8"
     env_file: .development.env
     user: ${UID}
 
