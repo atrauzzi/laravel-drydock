@@ -22,8 +22,9 @@ RUN apt-get install -y \
 	php7.1-dom \
 	php7.1-bcmath \
 	php7.1-mbstring \
+	php7.1-cli \
 	php7.1-mysql \
-	php7.1-cli
+	php7.1-memcached
 
 RUN easy_install pip
 
