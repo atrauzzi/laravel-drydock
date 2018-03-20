@@ -26,6 +26,7 @@ RUN apt-get install -y \
 	php7.1-cli \
 	php7.1-mysql \
 	php7.1-memcached \
+	php7.1-gmagick \
 	php7.1-imagick
 
 RUN easy_install pip
