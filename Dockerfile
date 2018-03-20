@@ -12,6 +12,8 @@ RUN apt-get install -y \
 	python-setuptools \
 	graphicsmagick \
 	libgraphicsmagick++1-dev \
+	libgraphicsmagick1-dev \
+	graphicsmagick-imagemagick-compat \
 	php7.1-dev \
 	php7.1-pgsql \
 	php7.1-sqlite \
@@ -28,7 +30,8 @@ RUN apt-get install -y \
 	php7.1-cli \
 	php7.1-mysql \
 	php7.1-memcached \
-	php7.1-imagick
+	php7.1-imagick \
+	php7.1-gmagick
 
 RUN apt-get install -y 
 
