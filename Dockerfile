@@ -37,9 +37,6 @@ RUN apt-get install -y
 
 RUN pecl install --force gmagick
 
-ADD /resources/gmagick.ini /etc/php/7.1/mods-available/gmagick.ini
-RUN ln -s /etc/php/7.1/mods-available/gmagick.ini /etc/php/7.1/fpm/conf.d/20-gmagick.ini
-
 RUN easy_install pip
 
 RUN phpenmod mcrypt
