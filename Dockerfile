@@ -10,6 +10,7 @@ RUN apt-get install -y \
 	mercurial \
 	python \
 	python-setuptools \
+	graphicsmagick \
 	php7.1-pgsql \
 	php7.1-sqlite \
 	php-redis \
@@ -24,7 +25,8 @@ RUN apt-get install -y \
 	php7.1-mbstring \
 	php7.1-cli \
 	php7.1-mysql \
-	php7.1-memcached
+	php7.1-memcached \
+	php7.1-imagick
 
 RUN easy_install pip
 
