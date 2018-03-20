@@ -11,6 +11,7 @@ RUN apt-get install -y \
 	python \
 	python-setuptools \
 	graphicsmagick \
+	libgraphicsmagick++1-dev \
 	php7.1-dev \
 	php7.1-pgsql \
 	php7.1-sqlite \
@@ -29,11 +30,14 @@ RUN apt-get install -y \
 	php7.1-memcached \
 	php7.1-imagick
 
+RUN apt-get install -y 
+
 RUN pecl install --force gmagick
 
 RUN easy_install pip
 
 RUN phpenmod mcrypt
+RUN phpenmod gmagick
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
